@@ -1,12 +1,12 @@
 import type { User } from '@/types';
 
-const AUTH_KEY = 'autoya_logged_in';
-const USER_KEY = 'autoya_user';
+const AUTH_KEY = 'mouto_logged_in';
+const USER_KEY = 'mouto_user';
 
 const MOCK_USER: User = {
   id: 'u_001',
   name: 'Ivan M.',
-  email: 'ivan@autoya.pe',
+  email: 'ivan@mouto.pe',
   avatar: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=200&q=80',
   driverCode: 'IVAN-X7K',
   bio: 'Apasionado de los autos y la tecnología.',

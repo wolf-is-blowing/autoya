@@ -23,7 +23,7 @@ export default function AccesoPage() {
           Inicia sesión para continuar
         </h1>
         <p className="text-ghost text-sm mb-8 leading-relaxed">
-          Esta sección está disponible solo para conductores registrados en AutoYa.
+          Esta sección está disponible solo para conductores registrados en Mouto.
         </p>
 
         <div className="flex flex-col gap-3">
