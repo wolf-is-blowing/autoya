@@ -8,20 +8,29 @@ interface BadgeProps {
 }
 
 const variants = {
-  accent:   'bg-accent/10 text-accent border border-accent/20',
-  action:   'bg-action/10 text-action border border-action/20',
-  muted:    'bg-elevated text-ghost border border-rim',
-  verified: 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20',
+  accent:   'bg-volt text-base font-semibold',
+  action:   'bg-ignite text-white font-semibold',
+  muted:    'bg-surface text-muted border border-rim',
+  verified: 'bg-transparent text-volt border border-volt',
 };
 
 const sizes = {
-  sm: 'px-2 py-0.5 text-xs rounded-md',
-  md: 'px-3 py-1 text-xs rounded-lg',
+  sm: 'px-2 py-0.5 text-[10px]',
+  md: 'px-2.5 py-1 text-xs',
 };
 
 export function Badge({ children, variant = 'muted', size = 'md', className = '' }: BadgeProps) {
   return (
-    <span className={`inline-flex items-center gap-1 font-medium ${variants[variant]} ${sizes[size]} ${className}`}>
+    <span
+      className={`
+        inline-flex items-center gap-1.5 uppercase tracking-[0.06em]
+        ${variants[variant]} ${sizes[size]} ${className}
+      `}
+      style={{ fontFamily: 'var(--font-dm-sans), sans-serif', borderRadius: 0 }}
+    >
+      {variant === 'verified' && (
+        <span className="w-1.5 h-1.5 rounded-full bg-volt animate-volt-pulse flex-shrink-0" />
+      )}
       {children}
     </span>
   );

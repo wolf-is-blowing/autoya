@@ -8,16 +8,20 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 const variants = {
-  primary:   'gradient-brand text-base font-semibold shadow-lg shadow-accent/20 hover:opacity-90',
-  secondary: 'bg-surface border border-rim text-snow hover:border-accent hover:text-accent',
-  ghost:     'bg-transparent text-ghost hover:text-snow hover:bg-elevated',
-  action:    'gradient-action text-white font-semibold shadow-lg shadow-action/20 hover:opacity-90',
+  primary:
+    'bg-volt text-base hover:brightness-110 border border-volt',
+  secondary:
+    'bg-transparent border border-volt text-volt hover:bg-volt hover:text-base',
+  action:
+    'bg-ignite text-white hover:brightness-110 border border-ignite',
+  ghost:
+    'bg-transparent border border-transparent text-muted hover:text-snow',
 };
 
 const sizes = {
-  sm: 'px-3 py-1.5 text-sm rounded-lg gap-1.5',
-  md: 'px-5 py-2.5 text-sm rounded-xl gap-2',
-  lg: 'px-7 py-3.5 text-base rounded-xl gap-2.5',
+  sm: 'px-4 py-1.5 text-xs gap-1.5',
+  md: 'px-5 py-2.5 text-sm gap-2',
+  lg: 'px-7 py-3.5 text-sm gap-2.5',
 };
 
 export function Button({
@@ -32,12 +36,15 @@ export function Button({
     <button
       className={`
         inline-flex items-center justify-center
-        font-body transition-all duration-200 active:scale-[0.97] cursor-pointer
+        font-medium uppercase tracking-[0.06em]
+        transition-all duration-150 active:scale-[0.97] cursor-pointer
         disabled:opacity-40 disabled:cursor-not-allowed
+        rounded-none
         ${variants[variant]} ${sizes[size]}
         ${fullWidth ? 'w-full' : ''}
         ${className}
       `}
+      style={{ fontFamily: 'var(--font-dm-sans), sans-serif' }}
       {...props}
     >
       {children}

@@ -7,8 +7,8 @@ interface CardProps extends HTMLAttributes<HTMLDivElement> {
 }
 
 const variants = {
-  default:  'bg-surface',
-  elevated: 'bg-elevated',
+  default:  'bg-surface border-t-2 border-t-volt border-x-0 border-b-0',
+  elevated: 'bg-surface border border-rim',
   bordered: 'bg-surface border border-rim',
 };
 
@@ -16,11 +16,12 @@ export function Card({ children, variant = 'default', glow = false, className = 
   return (
     <div
       className={`
-        rounded-2xl overflow-hidden
+        overflow-hidden rounded-none
         ${variants[variant]}
-        ${glow ? 'hover-glow' : ''}
+        ${glow ? 'volt-glow' : ''}
         ${className}
       `}
+      style={variant === 'default' ? { borderStyle: 'solid' } : undefined}
       {...props}
     >
       {children}
