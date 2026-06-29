@@ -1,13 +1,13 @@
 import type { Metadata } from 'next';
-import { Space_Grotesk, DM_Sans } from 'next/font/google';
+import { Bebas_Neue, DM_Sans } from 'next/font/google';
 import './globals.css';
 import { Header }    from '@/components/layout/Header';
 import { BottomNav } from '@/components/layout/BottomNav';
 
-const spaceGrotesk = Space_Grotesk({
+const bebasNeue = Bebas_Neue({
+  weight: '400',
   subsets: ['latin'],
-  variable: '--font-space-grotesk',
-  weight: ['300', '400', '500', '600', '700'],
+  variable: '--font-bebas',
   display: 'swap',
 });
 
@@ -25,7 +25,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="es-PE" className={`${spaceGrotesk.variable} ${dmSans.variable}`}>
+    <html lang="es-PE" className={`${bebasNeue.variable} ${dmSans.variable}`}>
       <body className="antialiased">
         <Header />
         {children}
