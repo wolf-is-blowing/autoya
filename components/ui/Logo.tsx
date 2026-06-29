@@ -1,57 +1,86 @@
+const clash = "'Clash Display', system-ui, sans-serif";
+const cabinet = "'Cabinet Grotesk', system-ui, sans-serif";
+
 interface LogoProps {
+  variant?: 'full' | 'icon' | 'wordmark';
   size?: 'sm' | 'md' | 'lg';
-  iconOnly?: boolean;
 }
 
-const sizes = {
-  sm: { text: 'text-xl',  needle: { w: 5,  h: 18 } },
-  md: { text: 'text-2xl', needle: { w: 6,  h: 22 } },
-  lg: { text: 'text-4xl', needle: { w: 8,  h: 30 } },
-};
+const iconSizes = { sm: 28, md: 36, lg: 48 };
+const textSizes = { sm: 18, md: 24, lg: 32 };
 
-export function Logo({ size = 'md', iconOnly = false }: LogoProps) {
-  const { text, needle } = sizes[size];
-  const font = "var(--font-bebas), 'Bebas Neue', sans-serif";
-
+/** Mouto isotipo — M geométrico como dos arcos de circuito */
+export function MoutoIsotipo({ size = 28 }: { size?: number }) {
   return (
-    <div className="flex items-baseline gap-0" style={{ lineHeight: 1 }}>
-      {/* AUTO in off-white */}
-      <span
-        style={{ fontFamily: font, color: '#F0F0F0', letterSpacing: '0.04em' }}
-        className={text}
-      >
-        AUTO
-      </span>
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 40 40"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      aria-label="Mouto"
+    >
+      {/* Background square — carbón */}
+      <rect width="40" height="40" rx="10" fill="#111111" />
 
-      {/* Speed needle — diagonal volt line between AUTO and YA */}
-      <svg
-        width={needle.w}
-        height={needle.h}
-        viewBox={`0 0 ${needle.w} ${needle.h}`}
+      {/*
+        Dos arcos que forman una M geométrica:
+        - Arco izquierdo: sube desde abajo-izquierda hasta el centro
+        - Arco derecho: baja desde el centro hasta abajo-derecha
+        Juntos forman la silueta de un doble arco / trayectoria
+      */}
+      <path
+        d="M 7 32 C 7 32 7 12 14 12 C 21 12 21 28 21 28"
+        stroke="#F5F0E8"
+        strokeWidth="3.2"
+        strokeLinecap="round"
         fill="none"
-        className="mx-1 self-center"
-        aria-hidden
-      >
-        <line
-          x1={needle.w - 1}
-          y1="2"
-          x2="1"
-          y2={needle.h - 2}
-          stroke="#00FFB2"
-          strokeWidth="1.8"
-          strokeLinecap="round"
-        />
-      </svg>
+      />
+      <path
+        d="M 21 28 C 21 28 21 12 28 12 C 35 12 33 32 33 32"
+        stroke="#0A84FF"
+        strokeWidth="3.2"
+        strokeLinecap="round"
+        fill="none"
+      />
 
-      {/* YA in volt */}
-      {!iconOnly && (
-        <span
-          style={{ fontFamily: font, color: '#00FFB2', letterSpacing: '0.04em' }}
-          className={text}
-        >
-          YA
-        </span>
-      )}
+      {/* Punto volt de aceleración en el vértice central */}
+      <circle cx="21" cy="28" r="2.4" fill="#C8F135" />
+    </svg>
+  );
+}
+
+export function Logo({ variant = 'full', size = 'md' }: LogoProps) {
+  const iconPx = iconSizes[size];
+  const textPx = textSizes[size];
+
+  if (variant === 'icon') return <MoutoIsotipo size={iconPx} />;
+
+  if (variant === 'wordmark') {
+    return (
+      <span style={{ fontFamily: cabinet, fontWeight: 700, fontSize: textPx, letterSpacing: '-0.01em' }}>
+        <span style={{ color: '#F5F0E8' }}>mout</span>
+        <span style={{ color: '#0A84FF' }}>o</span>
+      </span>
+    );
+  }
+
+  /* full: isotipo + wordmark */
+  return (
+    <div className="flex items-center gap-2">
+      <MoutoIsotipo size={iconPx} />
+      <span
+        style={{
+          fontFamily: cabinet,
+          fontWeight: 700,
+          fontSize: textPx,
+          letterSpacing: '-0.01em',
+          lineHeight: 1,
+        }}
+      >
+        <span style={{ color: '#F5F0E8' }}>mout</span>
+        <span style={{ color: '#0A84FF' }}>o</span>
+      </span>
     </div>
   );
 }
