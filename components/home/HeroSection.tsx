@@ -1,100 +1,119 @@
 import Link from 'next/link';
 import { Button } from '@/components/ui/Button';
-import { Badge } from '@/components/ui/Badge';
 import { IconArrowRight, IconChevronDown } from '@/components/icons';
 
 const STATS = [
-  { value: '2,400+', label: 'Autos disponibles' },
-  { value: '850+',   label: 'Servicios activos' },
-  { value: '50+',    label: 'Concesionarias' },
+  { value: '2,400',  label: 'Autos disponibles' },
+  { value: '850',    label: 'Servicios activos' },
+  { value: '50',     label: 'Concesionarias' },
 ];
 
 export function HeroSection() {
+  const bebas = "var(--font-bebas), 'Bebas Neue', sans-serif";
+  const dm    = "var(--font-dm-sans), sans-serif";
+
   return (
     <section className="relative min-h-dvh flex flex-col justify-end overflow-hidden">
-      {/* Background image */}
+      {/* Background */}
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         src="https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=1600&q=85"
-        alt="Auto deportivo en la noche"
+        alt=""
+        aria-hidden
         className="absolute inset-0 w-full h-full object-cover object-center"
+        style={{ opacity: 0.45 }}
       />
 
       {/* Gradient overlays */}
-      <div className="absolute inset-0 bg-gradient-to-t from-base via-base/70 to-transparent" />
-      <div className="absolute inset-0 bg-gradient-to-r from-base/80 via-base/40 to-transparent" />
+      <div className="absolute inset-0 hero-gradient" />
+      <div className="absolute inset-0 hero-gradient-left" />
 
-      {/* Accent glow */}
+      {/* Volt glow accent */}
       <div
-        className="absolute bottom-1/3 left-1/4 w-96 h-96 rounded-full opacity-10 blur-3xl pointer-events-none"
-        style={{ background: 'radial-gradient(circle, #00E5FF, transparent)' }}
+        className="absolute bottom-1/4 left-1/3 w-[500px] h-[500px] pointer-events-none"
+        style={{
+          background: 'radial-gradient(circle, rgba(0,255,178,0.06) 0%, transparent 70%)',
+        }}
       />
 
       {/* Content */}
-      <div className="relative z-10 max-w-7xl mx-auto px-4 md:px-6 pb-16 md:pb-20 pt-32 w-full">
-        <div className="max-w-2xl">
-          {/* Badge */}
-          <div className="animate-fade-up">
-            <Badge variant="accent" className="mb-6">
-              <span className="w-1.5 h-1.5 rounded-full bg-accent inline-block animate-glow-pulse" />
-              La plataforma del conductor peruano
-            </Badge>
-          </div>
+      <div className="relative z-10 max-w-7xl mx-auto px-4 md:px-8 pb-20 md:pb-24 pt-32 w-full">
+        <div className="max-w-3xl">
 
-          {/* Headline */}
-          <h1
-            className="animate-fade-up delay-100 text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight leading-[1.05] mb-6"
-            style={{ fontFamily: 'var(--font-space-grotesk), sans-serif' }}
+          {/* Eyebrow */}
+          <p
+            className="animate-fade-up text-xs font-medium uppercase tracking-[0.14em] text-muted mb-5"
+            style={{ fontFamily: dm }}
           >
-            Descubre.{' '}
-            <br className="hidden sm:block" />
-            Evalúa.{' '}
-            <br className="hidden sm:block" />
-            <span className="text-accent">Ya</span> es tuyo.
+            La plataforma del conductor peruano
+          </p>
+
+          {/* Headline — Bebas Neue, massive */}
+          <h1
+            className="animate-fade-up delay-100 text-snow leading-none mb-6"
+            style={{
+              fontFamily: bebas,
+              fontSize: 'clamp(60px, 9vw, 112px)',
+              letterSpacing: '0.01em',
+            }}
+          >
+            DESCUBRE.
+            <br />
+            EVALÚA.
+            <br />
+            <span style={{ color: '#00FFB2' }}>YA</span> ES TUYO.
           </h1>
 
-          {/* Subtext */}
-          <p className="animate-fade-up delay-200 text-ghost text-lg md:text-xl leading-relaxed mb-8 max-w-lg">
-            Encuentra tu auto ideal, agenda servicios y conéctate con la comunidad más grande de conductores del Perú.
+          {/* Subtitle */}
+          <p
+            className="animate-fade-up delay-200 text-muted mb-10 max-w-lg"
+            style={{ fontFamily: dm, fontSize: 16, lineHeight: 1.65 }}
+          >
+            Encuentra tu auto ideal con concesionarias verificadas, agenda servicios
+            y conéctate con la comunidad más grande de conductores del Perú.
           </p>
 
           {/* CTAs */}
-          <div className="animate-fade-up delay-300 flex flex-col sm:flex-row gap-3 mb-12">
+          <div className="animate-fade-up delay-300 flex flex-col sm:flex-row gap-3 mb-14">
             <Link href="/taller?tab=busqueda">
               <Button variant="primary" size="lg">
                 Encontrar mi auto
-                <IconArrowRight size={18} />
+                <IconArrowRight size={16} />
               </Button>
             </Link>
             <Link href="#servicios">
-              <Button variant="secondary" size="lg">
+              <Button variant="ghost" size="lg">
                 Ver servicios
-                <IconChevronDown size={18} />
+                <IconChevronDown size={16} />
               </Button>
             </Link>
           </div>
 
           {/* Stats */}
-          <div className="animate-fade-up delay-400 flex gap-8">
+          <div className="animate-fade-up delay-400 flex gap-10">
             {STATS.map((s) => (
               <div key={s.label}>
                 <div
-                  className="text-2xl md:text-3xl font-bold text-snow"
-                  style={{ fontFamily: 'var(--font-space-grotesk), sans-serif' }}
+                  className="leading-none mb-1"
+                  style={{ fontFamily: bebas, fontSize: 40, color: '#00FFB2', letterSpacing: '0.02em' }}
                 >
-                  {s.value}
+                  {s.value}+
                 </div>
-                <div className="text-xs text-ghost mt-0.5">{s.label}</div>
+                <div
+                  className="text-muted"
+                  style={{ fontFamily: dm, fontSize: 11, textTransform: 'uppercase', letterSpacing: '0.08em' }}
+                >
+                  {s.label}
+                </div>
               </div>
             ))}
           </div>
         </div>
       </div>
 
-      {/* Scroll indicator */}
-      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1 opacity-40">
-        <span className="text-xs text-ghost">Desliza</span>
-        <IconChevronDown className="text-ghost animate-bounce" size={18} />
+      {/* Scroll hint */}
+      <div className="absolute bottom-6 right-6 flex flex-col items-center gap-1 opacity-30">
+        <IconChevronDown className="text-snow" size={16} />
       </div>
     </section>
   );

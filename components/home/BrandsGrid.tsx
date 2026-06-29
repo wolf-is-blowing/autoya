@@ -3,60 +3,60 @@ import { BRANDS } from '@/lib/data';
 import { IconArrowRight } from '@/components/icons';
 
 export function BrandsGrid() {
+  const bebas = "var(--font-bebas), 'Bebas Neue', sans-serif";
+  const dm    = "var(--font-dm-sans), sans-serif";
+
   return (
-    <section className="py-16 px-4 md:px-6 max-w-7xl mx-auto">
+    <section className="py-16 px-4 md:px-8 max-w-7xl mx-auto">
       {/* Header */}
       <div className="flex items-end justify-between mb-8">
         <div>
-          <p className="text-accent text-xs font-semibold tracking-widest uppercase mb-1">
+          <p
+            className="text-muted mb-1 uppercase tracking-[0.12em]"
+            style={{ fontFamily: dm, fontSize: 11 }}
+          >
             Catálogo
           </p>
-          <h2
-            className="text-2xl md:text-3xl font-bold text-snow"
-            style={{ fontFamily: 'var(--font-space-grotesk), sans-serif' }}
-          >
+          <h2 style={{ fontFamily: bebas, fontSize: 36, letterSpacing: '0.02em', color: '#F0F0F0' }}>
             Explora por marca
           </h2>
         </div>
         <Link
           href="/taller?tab=busqueda"
-          className="hidden sm:flex items-center gap-1.5 text-sm text-ghost hover:text-accent transition-colors"
+          className="hidden sm:flex items-center gap-1.5 text-muted hover:text-volt transition-colors"
+          style={{ fontFamily: dm, fontSize: 12, textTransform: 'uppercase', letterSpacing: '0.08em' }}
         >
-          Ver todas <IconArrowRight size={16} />
+          Ver todas <IconArrowRight size={14} />
         </Link>
       </div>
 
-      {/* Horizontal scroll on mobile, wrap on desktop */}
-      <div className="flex gap-3 overflow-x-auto no-scrollbar md:flex-wrap md:overflow-visible pb-2 md:pb-0">
+      {/* Horizontal scroll */}
+      <div className="flex gap-2 overflow-x-auto no-scrollbar pb-2">
         {BRANDS.map((brand) => (
           <Link
-            key={brand.id}
-            href={`/marcas/${brand.id}`}
-            className="flex-shrink-0 group"
-          >
-            <div className="flex flex-col items-center gap-2 p-3 rounded-2xl bg-surface border border-rim hover:border-accent/40 hover-glow transition-all duration-200 w-20 md:w-24">
-              {/* Brand circle with initials */}
-              <div
-                className="w-12 h-12 md:w-14 md:h-14 rounded-full flex items-center justify-center text-white font-bold text-sm flex-shrink-0"
-                style={{ backgroundColor: brand.color, fontFamily: 'var(--font-space-grotesk), sans-serif' }}
+              key={brand.id}
+              href={`/marcas/${brand.id}`}
+              className="flex-shrink-0 group px-4 py-2.5 border border-rim hover:border-volt transition-colors duration-200"
+              style={{ background: '#1A1A2E', borderRadius: 0, minWidth: 90 }}
+            >
+              <span
+                className="block text-center text-snow group-hover:text-volt transition-colors whitespace-nowrap"
+                style={{ fontFamily: dm, fontSize: 12, fontWeight: 500 }}
               >
-                {brand.initials}
-              </div>
-              <span className="text-[11px] text-ghost group-hover:text-snow transition-colors text-center leading-tight w-full truncate px-1">
                 {brand.name}
               </span>
-            </div>
-          </Link>
+            </Link>
         ))}
       </div>
 
       {/* Mobile: ver todas */}
-      <div className="sm:hidden mt-4">
+      <div className="sm:hidden mt-5">
         <Link
           href="/taller?tab=busqueda"
-          className="flex items-center justify-center gap-1.5 text-sm text-ghost hover:text-accent transition-colors py-2"
+          className="flex items-center gap-1.5 text-muted hover:text-volt transition-colors"
+          style={{ fontFamily: dm, fontSize: 11, textTransform: 'uppercase', letterSpacing: '0.08em' }}
         >
-          Ver todas las marcas <IconArrowRight size={16} />
+          Ver todas las marcas <IconArrowRight size={14} />
         </Link>
       </div>
     </section>
