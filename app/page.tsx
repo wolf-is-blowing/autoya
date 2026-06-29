@@ -1,7 +1,7 @@
-import { PageWrapper }   from '@/components/layout/PageWrapper';
-import { HeroSection }   from '@/components/home/HeroSection';
-import { BrandsGrid }    from '@/components/home/BrandsGrid';
-import { ServicesGrid }  from '@/components/home/ServicesGrid';
+import { PageWrapper }  from '@/components/layout/PageWrapper';
+import { HeroSection }  from '@/components/home/HeroSection';
+import { BrandsGrid }   from '@/components/home/BrandsGrid';
+import { ServicesGrid } from '@/components/home/ServicesGrid';
 
 export default function HomePage() {
   return (
@@ -9,9 +9,7 @@ export default function HomePage() {
       <HeroSection />
       <BrandsGrid />
       <ServicesGrid />
-
-      {/* Footer spacing for bottom nav */}
-      <div className="h-24" />
+      <div className="h-[88px]" />
     </PageWrapper>
   );
 }

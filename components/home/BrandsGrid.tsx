@@ -1,63 +1,50 @@
 import Link from 'next/link';
 import { BRANDS } from '@/lib/data';
-import { IconArrowRight } from '@/components/icons';
+
+const clash   = "'Clash Display', system-ui, sans-serif";
+const cabinet = "'Cabinet Grotesk', system-ui, sans-serif";
 
 export function BrandsGrid() {
-  const bebas = "var(--font-bebas), 'Bebas Neue', sans-serif";
-  const dm    = "var(--font-dm-sans), sans-serif";
-
   return (
-    <section className="py-16 px-4 md:px-8 max-w-7xl mx-auto">
+    <section className="py-16 px-5 md:px-8 max-w-7xl mx-auto">
+
       {/* Header */}
-      <div className="flex items-end justify-between mb-8">
-        <div>
-          <p
-            className="text-muted mb-1 uppercase tracking-[0.12em]"
-            style={{ fontFamily: dm, fontSize: 11 }}
-          >
-            Catálogo
-          </p>
-          <h2 style={{ fontFamily: bebas, fontSize: 36, letterSpacing: '0.02em', color: '#F0F0F0' }}>
-            Explora por marca
-          </h2>
-        </div>
-        <Link
-          href="/taller?tab=busqueda"
-          className="hidden sm:flex items-center gap-1.5 text-muted hover:text-volt transition-colors"
-          style={{ fontFamily: dm, fontSize: 12, textTransform: 'uppercase', letterSpacing: '0.08em' }}
+      <div className="mb-7">
+        <p
+          className="text-muted mb-2 uppercase tracking-[0.1em]"
+          style={{ fontFamily: cabinet, fontSize: 11 }}
         >
-          Ver todas <IconArrowRight size={14} />
-        </Link>
+          Catálogo
+        </p>
+        <h2
+          className="text-ivory"
+          style={{ fontFamily: clash, fontSize: 'clamp(24px, 3vw, 32px)', fontWeight: 600, letterSpacing: '-0.01em' }}
+        >
+          Explora por marca
+        </h2>
       </div>
 
-      {/* Horizontal scroll */}
-      <div className="flex gap-2 overflow-x-auto no-scrollbar pb-2">
+      {/* Scroll horizontal de chips — hover con clases Tailwind puras */}
+      <div className="flex gap-2 overflow-x-auto no-scrollbar pb-1">
         {BRANDS.map((brand) => (
           <Link
-              key={brand.id}
-              href={`/marcas/${brand.id}`}
-              className="flex-shrink-0 group px-4 py-2.5 border border-rim hover:border-volt transition-colors duration-200"
-              style={{ background: '#1A1A2E', borderRadius: 0, minWidth: 90 }}
+            key={brand.id}
+            href={`/marcas/${brand.id}`}
+            className="
+              flex-shrink-0 px-4 py-2 rounded-full
+              bg-surface border border-white/[0.08]
+              hover:border-electric
+              transition-all duration-150 group
+            "
+          >
+            <span
+              className="text-ivory group-hover:text-electric whitespace-nowrap transition-colors"
+              style={{ fontFamily: cabinet, fontSize: 13, fontWeight: 500 }}
             >
-              <span
-                className="block text-center text-snow group-hover:text-volt transition-colors whitespace-nowrap"
-                style={{ fontFamily: dm, fontSize: 12, fontWeight: 500 }}
-              >
-                {brand.name}
-              </span>
-            </Link>
+              {brand.name}
+            </span>
+          </Link>
         ))}
-      </div>
-
-      {/* Mobile: ver todas */}
-      <div className="sm:hidden mt-5">
-        <Link
-          href="/taller?tab=busqueda"
-          className="flex items-center gap-1.5 text-muted hover:text-volt transition-colors"
-          style={{ fontFamily: dm, fontSize: 11, textTransform: 'uppercase', letterSpacing: '0.08em' }}
-        >
-          Ver todas las marcas <IconArrowRight size={14} />
-        </Link>
       </div>
     </section>
   );

@@ -1,119 +1,107 @@
 import Link from 'next/link';
 import { Button } from '@/components/ui/Button';
-import { IconArrowRight, IconChevronDown } from '@/components/icons';
+import { Badge }  from '@/components/ui/Badge';
 
 const STATS = [
-  { value: '2,400',  label: 'Autos disponibles' },
-  { value: '850',    label: 'Servicios activos' },
-  { value: '50',     label: 'Concesionarias' },
+  { value: '2,400', label: 'Autos disponibles' },
+  { value: '850',   label: 'Servicios activos'  },
+  { value: '50',    label: 'Concesionarias'      },
 ];
 
-export function HeroSection() {
-  const bebas = "var(--font-bebas), 'Bebas Neue', sans-serif";
-  const dm    = "var(--font-dm-sans), sans-serif";
+const clash   = "'Clash Display', system-ui, sans-serif";
+const cabinet = "'Cabinet Grotesk', system-ui, sans-serif";
 
+export function HeroSection() {
   return (
     <section className="relative min-h-dvh flex flex-col justify-end overflow-hidden">
-      {/* Background */}
+
+      {/* ── Imagen de fondo ── */}
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
-        src="https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=1600&q=85"
+        src="https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=1600&q=85&auto=format"
         alt=""
         aria-hidden
         className="absolute inset-0 w-full h-full object-cover object-center"
-        style={{ opacity: 0.45 }}
+        style={{ opacity: 0.55 }}
       />
 
-      {/* Gradient overlays */}
-      <div className="absolute inset-0 hero-gradient" />
-      <div className="absolute inset-0 hero-gradient-left" />
+      {/* ── Gradiente de abajo hacia arriba (oscurece el fondo) ── */}
+      <div className="absolute inset-0 grad-cinematic" />
 
-      {/* Volt glow accent */}
+      {/* ── Gradiente lateral sutil (izquierda) ── */}
+      <div className="absolute inset-0 grad-overlay-left hidden md:block" />
+
+      {/* ── Glow electric sutil ── */}
       <div
-        className="absolute bottom-1/4 left-1/3 w-[500px] h-[500px] pointer-events-none"
-        style={{
-          background: 'radial-gradient(circle, rgba(0,255,178,0.06) 0%, transparent 70%)',
-        }}
+        className="absolute bottom-0 left-0 right-0 h-[50%] pointer-events-none"
+        style={{ background: 'radial-gradient(ellipse 80% 60% at 20% 100%, rgba(10,132,255,0.07) 0%, transparent 70%)' }}
       />
 
-      {/* Content */}
-      <div className="relative z-10 max-w-7xl mx-auto px-4 md:px-8 pb-20 md:pb-24 pt-32 w-full">
-        <div className="max-w-3xl">
+      {/* ── Contenido anclado al fondo ── */}
+      <div className="relative z-10 w-full max-w-7xl mx-auto px-5 md:px-8 pb-20 md:pb-24">
 
-          {/* Eyebrow */}
-          <p
-            className="animate-fade-up text-xs font-medium uppercase tracking-[0.14em] text-muted mb-5"
-            style={{ fontFamily: dm }}
-          >
-            La plataforma del conductor peruano
-          </p>
-
-          {/* Headline — Bebas Neue, massive */}
-          <h1
-            className="animate-fade-up delay-100 text-snow leading-none mb-6"
-            style={{
-              fontFamily: bebas,
-              fontSize: 'clamp(60px, 9vw, 112px)',
-              letterSpacing: '0.01em',
-            }}
-          >
-            DESCUBRE.
-            <br />
-            EVALÚA.
-            <br />
-            <span style={{ color: '#00FFB2' }}>YA</span> ES TUYO.
-          </h1>
-
-          {/* Subtitle */}
-          <p
-            className="animate-fade-up delay-200 text-muted mb-10 max-w-lg"
-            style={{ fontFamily: dm, fontSize: 16, lineHeight: 1.65 }}
-          >
-            Encuentra tu auto ideal con concesionarias verificadas, agenda servicios
-            y conéctate con la comunidad más grande de conductores del Perú.
-          </p>
-
-          {/* CTAs */}
-          <div className="animate-fade-up delay-300 flex flex-col sm:flex-row gap-3 mb-14">
-            <Link href="/taller?tab=busqueda">
-              <Button variant="primary" size="lg">
-                Encontrar mi auto
-                <IconArrowRight size={16} />
-              </Button>
-            </Link>
-            <Link href="#servicios">
-              <Button variant="ghost" size="lg">
-                Ver servicios
-                <IconChevronDown size={16} />
-              </Button>
-            </Link>
-          </div>
-
-          {/* Stats */}
-          <div className="animate-fade-up delay-400 flex gap-10">
-            {STATS.map((s) => (
-              <div key={s.label}>
-                <div
-                  className="leading-none mb-1"
-                  style={{ fontFamily: bebas, fontSize: 40, color: '#00FFB2', letterSpacing: '0.02em' }}
-                >
-                  {s.value}+
-                </div>
-                <div
-                  className="text-muted"
-                  style={{ fontFamily: dm, fontSize: 11, textTransform: 'uppercase', letterSpacing: '0.08em' }}
-                >
-                  {s.label}
-                </div>
+        {/* Stats — sobre el título */}
+        <div className="animate-fade-up flex gap-8 md:gap-12 mb-8">
+          {STATS.map((s) => (
+            <div key={s.label}>
+              <div
+                className="leading-none mb-1"
+                style={{ fontFamily: clash, fontSize: 'clamp(28px, 4vw, 40px)', fontWeight: 700, color: '#C8F135', letterSpacing: '-0.01em' }}
+              >
+                {s.value}+
               </div>
-            ))}
-          </div>
+              <div
+                className="text-muted"
+                style={{ fontFamily: cabinet, fontSize: 11, textTransform: 'uppercase', letterSpacing: '0.08em' }}
+              >
+                {s.label}
+              </div>
+            </div>
+          ))}
         </div>
-      </div>
 
-      {/* Scroll hint */}
-      <div className="absolute bottom-6 right-6 flex flex-col items-center gap-1 opacity-30">
-        <IconChevronDown className="text-snow" size={16} />
+        {/* Tag */}
+        <div className="animate-fade-up delay-100 mb-5">
+          <Badge variant="volt">El lugar de los conductores</Badge>
+        </div>
+
+        {/* Título */}
+        <h1 className="animate-fade-up delay-200 mb-4" style={{ fontFamily: clash, fontWeight: 700, lineHeight: 1.0, letterSpacing: '-0.02em' }}>
+          <span
+            className="block text-ivory"
+            style={{ fontSize: 'clamp(44px, 7vw, 72px)' }}
+          >
+            Todo lo que necesitas
+          </span>
+          <span
+            className="block"
+            style={{ fontSize: 'clamp(44px, 7vw, 72px)', color: '#0A84FF' }}
+          >
+            como conductor.
+          </span>
+        </h1>
+
+        {/* Subtítulo */}
+        <p
+          className="animate-fade-up delay-300 text-muted mb-8 max-w-md"
+          style={{ fontFamily: cabinet, fontSize: 16, lineHeight: 1.6 }}
+        >
+          Descubre tu próximo auto, agenda servicios y conéctate con tu comunidad — todo en Mouto.
+        </p>
+
+        {/* CTAs */}
+        <div className="animate-fade-up delay-400 flex flex-col sm:flex-row gap-3">
+          <Link href="/taller?tab=busqueda">
+            <Button variant="volt" size="lg">
+              Encuentra tu auto
+            </Button>
+          </Link>
+          <Link href="#servicios">
+            <Button variant="ghost" size="lg">
+              Ver servicios ↓
+            </Button>
+          </Link>
+        </div>
       </div>
     </section>
   );
