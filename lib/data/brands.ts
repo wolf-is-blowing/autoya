@@ -1,0 +1,26 @@
+import type { Brand } from '@/types';
+
+export const BRANDS: Brand[] = [
+  { id: 'toyota',      name: 'Toyota',        country: 'Japón',          color: '#EB0A1E', category: 'mid',     featured: true,  initials: 'T'   },
+  { id: 'hyundai',     name: 'Hyundai',        country: 'Corea',          color: '#002C5F', category: 'economy', featured: true,  initials: 'H'   },
+  { id: 'kia',         name: 'KIA',            country: 'Corea',          color: '#05141F', category: 'economy', featured: true,  initials: 'K'   },
+  { id: 'nissan',      name: 'Nissan',         country: 'Japón',          color: '#C3002F', category: 'mid',     featured: true,  initials: 'N'   },
+  { id: 'chevrolet',   name: 'Chevrolet',      country: 'EE.UU.',         color: '#D4A017', category: 'mid',     featured: true,  initials: 'CH'  },
+  { id: 'volkswagen',  name: 'Volkswagen',     country: 'Alemania',       color: '#001E50', category: 'mid',     featured: true,  initials: 'VW'  },
+  { id: 'bmw',         name: 'BMW',            country: 'Alemania',       color: '#1C69D4', category: 'premium', featured: true,  initials: 'BMW' },
+  { id: 'mercedes',    name: 'Mercedes-Benz',  country: 'Alemania',       color: '#353535', category: 'luxury',  featured: true,  initials: 'MB'  },
+  { id: 'audi',        name: 'Audi',           country: 'Alemania',       color: '#BB0A21', category: 'premium', featured: true,  initials: 'AU'  },
+  { id: 'suzuki',      name: 'Suzuki',         country: 'Japón',          color: '#E30613', category: 'economy', featured: false, initials: 'SZ'  },
+  { id: 'mitsubishi',  name: 'Mitsubishi',     country: 'Japón',          color: '#E60012', category: 'mid',     featured: false, initials: 'MT'  },
+  { id: 'honda',       name: 'Honda',          country: 'Japón',          color: '#CC0000', category: 'mid',     featured: false, initials: 'HO'  },
+  { id: 'mazda',       name: 'Mazda',          country: 'Japón',          color: '#0A2744', category: 'mid',     featured: false, initials: 'MZ'  },
+  { id: 'ford',        name: 'Ford',           country: 'EE.UU.',         color: '#003078', category: 'mid',     featured: false, initials: 'F'   },
+  { id: 'renault',     name: 'Renault',        country: 'Francia',        color: '#EFDF00', category: 'economy', featured: false, initials: 'RN'  },
+  { id: 'peugeot',     name: 'Peugeot',        country: 'Francia',        color: '#001A70', category: 'mid',     featured: false, initials: 'PG'  },
+  { id: 'jeep',        name: 'Jeep',           country: 'EE.UU.',         color: '#2B5741', category: 'mid',     featured: false, initials: 'J'   },
+  { id: 'volvo',       name: 'Volvo',          country: 'Suecia',         color: '#003057', category: 'premium', featured: false, initials: 'VO'  },
+  { id: 'porsche',     name: 'Porsche',        country: 'Alemania',       color: '#D5001C', category: 'luxury',  featured: false, initials: 'PO'  },
+  { id: 'landrover',   name: 'Land Rover',     country: 'Reino Unido',    color: '#005A2B', category: 'luxury',  featured: false, initials: 'LR'  },
+  { id: 'lexus',       name: 'Lexus',          country: 'Japón',          color: '#1A1A1A', category: 'luxury',  featured: false, initials: 'LX'  },
+  { id: 'subaru',      name: 'Subaru',         country: 'Japón',          color: '#003399', category: 'mid',     featured: false, initials: 'SB'  },
+];
