@@ -19,7 +19,7 @@ export function Header() {
 
   useEffect(() => {
     setLoggedIn(authUtils.isLoggedIn());
-    const onScroll = () => setScrolled(window.scrollY > 80);
+    const onScroll = () => setScrolled(window.scrollY > 60);
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
@@ -28,7 +28,13 @@ export function Header() {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? 'glass-nav border-b border-white/5' : 'bg-transparent'}`}
+      className="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
+      style={scrolled ? {
+        background: 'rgba(17,17,17,0.8)',
+        backdropFilter: 'blur(24px)',
+        WebkitBackdropFilter: 'blur(24px)',
+        borderBottom: '1px solid rgba(255,255,255,0.05)',
+      } : {}}
     >
       <div className="max-w-7xl mx-auto px-5 md:px-8 h-[60px] flex items-center gap-4">
 

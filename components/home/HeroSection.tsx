@@ -21,8 +21,8 @@ export function HeroSection() {
         src="https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=1600&q=85&auto=format"
         alt=""
         aria-hidden
-        className="absolute inset-0 w-full h-full object-cover object-center hero-zoom"
-        style={{ opacity: 0.5 }}
+        className="absolute inset-0 w-full h-full object-cover hero-zoom"
+        style={{ opacity: 0.5, objectPosition: 'center top' }}
       />
 
       {/* Cinematic gradient — fades to solid carbon */}
@@ -40,7 +40,7 @@ export function HeroSection() {
       />
 
       {/* Content — anchored to bottom */}
-      <div className="relative z-10 w-full max-w-7xl mx-auto px-5 md:px-8 pb-20 md:pb-24">
+      <div className="relative z-10 w-full max-w-7xl mx-auto px-5 md:px-8 pt-20 pb-20 md:pb-24">
 
         {/* Badge */}
         <div className="animate-fade-up mb-5">

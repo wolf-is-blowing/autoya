@@ -10,69 +10,50 @@ interface IconProps {
 
 export function NavHome({ className = '', size = 24, style }: IconProps) {
   return (
-    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" className={className} style={style} aria-hidden>
-      {/* Horizon line */}
-      <line x1="3" y1="15" x2="21" y2="15" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
-      {/* Road perspective lines */}
-      <line x1="3" y1="21" x2="12" y2="8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
-      <line x1="21" y1="21" x2="12" y2="8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
-      {/* Destination arc */}
-      <path d="M9.5 8 A2.5 2.5 0 0 1 14.5 8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" fill="none"/>
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className} style={style} aria-hidden>
+      <path d="M3,10 L12,3 L21,10"/>
+      <path d="M5,10 V20 H19 V10"/>
+      <path d="M9,20 V14 H15 V20"/>
     </svg>
   );
 }
 
 export function NavParque({ className = '', size = 24, style }: IconProps) {
   return (
-    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" className={className} style={style} aria-hidden>
-      {/* Key ring */}
-      <circle cx="5.5" cy="12" r="2.5" stroke="currentColor" strokeWidth="1.5"/>
-      {/* Key shaft */}
-      <line x1="8" y1="12" x2="20" y2="12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
-      {/* Blade 1 */}
-      <line x1="14" y1="12" x2="14" y2="9" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
-      {/* Blade 2 */}
-      <line x1="18" y1="12" x2="18" y2="9" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className} style={style} aria-hidden>
+      <path d="M2,14 H22 V10 Q20,6 16,6 H8 Q4,6 2,10 Z"/>
+      <circle cx="6"  cy="14" r="2.5"/>
+      <circle cx="18" cy="14" r="2.5"/>
     </svg>
   );
 }
 
 export function NavTaller({ className = '', size = 24, style }: IconProps) {
   return (
-    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" className={className} style={style} aria-hidden>
-      {/* Handle at 45° */}
-      <line x1="5" y1="19" x2="15" y2="9" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
-      {/* Outer jaw arc */}
-      <path d="M12.5 10.5 A4 4 0 0 1 19.5 10.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" fill="none"/>
-      {/* Inner jaw arc */}
-      <path d="M13.8 10.5 A2.5 2.5 0 0 1 18.2 10.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" fill="none"/>
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className} style={style} aria-hidden>
+      <line x1="4" y1="20" x2="17" y2="7"/>
+      <circle cx="20" cy="4" r="3"/>
+      <line x1="18" y1="6" x2="17" y2="7"/>
     </svg>
   );
 }
 
 export function NavCaravana({ className = '', size = 24, style }: IconProps) {
   return (
-    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" className={className} style={style} aria-hidden>
-      {/* Three ovals in ascending diagonal */}
-      <ellipse cx="5" cy="16" rx="3.5" ry="2.2" stroke="currentColor" strokeWidth="1.5"/>
-      <ellipse cx="12" cy="12" rx="4.5" ry="2.8" stroke="currentColor" strokeWidth="1.5"/>
-      <ellipse cx="19" cy="8"  rx="3.5" ry="2.2" stroke="currentColor" strokeWidth="1.5"/>
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className} style={style} aria-hidden>
+      <circle cx="8"  cy="7" r="3"/>
+      <path d="M3,21 Q3,14 8,14 Q13,14 13,21"/>
+      <circle cx="16" cy="7" r="3"/>
+      <path d="M11,21 Q11,14 16,14 Q21,14 21,21"/>
     </svg>
   );
 }
 
 export function NavPerfil({ className = '', size = 24, style }: IconProps) {
   return (
-    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" className={className} style={style} aria-hidden>
-      {/* Helmet dome */}
-      <path d="M5 16 C5 9.8 8.1 4.5 12 4.5 C15.9 4.5 19 9.8 19 16"
-        stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
-      {/* Chin bar */}
-      <path d="M5 16 L5 18.5 C5 19.3 5.7 20 6.5 20 L17.5 20 C18.3 20 19 19.3 19 18.5 L19 16"
-        stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-      {/* Visor — 2px gap from dome walls */}
-      <rect x="7" y="13.5" width="10" height="3.5"
-        stroke="currentColor" strokeWidth="1.5" rx="1"/>
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className} style={style} aria-hidden>
+      <circle cx="12" cy="7" r="4"/>
+      <path d="M4,21 Q4,13 12,13 Q20,13 20,21"/>
     </svg>
   );
 }
