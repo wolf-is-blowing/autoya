@@ -38,11 +38,24 @@ export function Navigation() {
   const router   = useRouter();
   const [loggedIn, setLoggedIn] = useState(false);
   const [user,     setUser]     = useState<User | null>(null);
+  /* En home empieza oculta y aparece al scrollear; en otras páginas siempre visible */
+  const [scrolled, setScrolled] = useState(() => pathname !== '/');
 
   useEffect(() => {
     setLoggedIn(authUtils.isLoggedIn());
     setUser(authUtils.getUser());
   }, []);
+
+  useEffect(() => {
+    if (pathname !== '/') {
+      setScrolled(true);
+      return;
+    }
+    const check = () => setScrolled(window.scrollY > 80);
+    check(); // snapshot inicial (p.ej. reload mid-page)
+    window.addEventListener('scroll', check, { passive: true });
+    return () => window.removeEventListener('scroll', check);
+  }, [pathname]);
 
   const isAuthRoute = AUTH_ROUTES.some(r => pathname === r || pathname.startsWith(r + '/'));
   if (isAuthRoute) return null;
@@ -64,7 +77,11 @@ export function Navigation() {
       style={{
         bottom: 'max(20px, env(safe-area-inset-bottom, 20px))',
         left: '50%',
-        transform: 'translateX(-50%)',
+        /* scrolled controla visibilidad en home — en otras páginas siempre true */
+        transform: scrolled ? 'translateX(-50%) translateY(0)' : 'translateX(-50%) translateY(16px)',
+        opacity: scrolled ? 1 : 0,
+        pointerEvents: scrolled ? 'auto' : 'none',
+        transition: 'opacity 300ms ease-out, transform 400ms cubic-bezier(0.16, 1, 0.3, 1)',
         borderRadius: DNA.radius.nav,
         border: '1px solid rgba(255,255,255,0.08)',
         boxShadow: DNA.shadow.float,

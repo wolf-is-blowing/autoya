@@ -36,7 +36,7 @@ export function BrandsGrid() {
   return (
     /* brands-section: curved top, overlaps hero bottom by 40px */
     <div className="brands-section">
-      <div className="max-w-7xl mx-auto px-5 md:px-8 pb-12">
+      <div className="max-w-7xl mx-auto px-5 md:px-8">
 
         <FadeInView>
           <p

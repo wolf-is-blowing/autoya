@@ -24,10 +24,11 @@ export function ServicesGrid() {
   const sliderServices = SERVICES.slice(4);
 
   return (
-    <section id="servicios" className="max-w-7xl mx-auto section-padding" style={{ backgroundColor: '#111111' }}>
+    /* section-card: full-width, border-radius 32px, background #1C1C1E */
+    <section id="servicios" className="section-card">
 
-      {/* Section header */}
-      <FadeInView className="px-5 md:px-8">
+      {/* Section header — inner padding */}
+      <FadeInView className="px-5 md:px-8 pt-[48px] pb-0">
         <p
           className="text-muted mb-2 uppercase tracking-[0.1em]"
           style={{ fontFamily: cabinet, fontSize: 11 }}
@@ -114,63 +115,63 @@ export function ServicesGrid() {
         ))}
       </div>
 
-      {/* Horizontal slider — secondary services, fixed card widths, px padding on both ends */}
+      {/* Slider — paddingLeft alinea con grid, spacer final garantiza padding-right en WebKit */}
       <div
         className="flex gap-3 overflow-x-auto no-scrollbar services-slider"
         style={{
           scrollSnapType: 'x mandatory',
           WebkitOverflowScrolling: 'touch' as React.CSSProperties['WebkitOverflowScrolling'],
           paddingLeft: 20,
-          paddingRight: 20,
-          paddingBottom: 4,
+          paddingBottom: 48,
         }}
       >
         {sliderServices.map((service, i) => (
-          /* Outer div: flex item with fixed width + snap align */
           <div key={service.id} style={{ width: 140, flexShrink: 0, scrollSnapAlign: 'start' }}>
             <FadeInView delay={i * 60}>
-            <Link href={`/taller/${service.id}`}>
-              <div
-                className="relative card-hover"
-                style={{
-                  width: 140,
-                  height: 160,
-                  clipPath: DNA.clipCard,
-                  boxShadow: DNA.shadow.card,
-                }}
-              >
-                <img
-                  src={SERVICE_IMAGES[service.id]}
-                  alt=""
-                  aria-hidden
-                  className="absolute inset-0 w-full h-full object-cover"
-                />
-                <div className="absolute inset-0 grad-cinematic" />
-                <div className="absolute bottom-0 left-0 right-0 p-3 z-10">
-                  <h3
-                    style={{
-                      fontFamily: clash,
-                      fontSize: 14,
-                      fontWeight: 400,
-                      letterSpacing: '-0.01em',
-                      color: '#F5F0E8',
-                      lineHeight: 1.2,
-                      marginBottom: service.priceFrom ? 2 : 0,
-                    }}
-                  >
-                    {service.name}
-                  </h3>
-                  {service.priceFrom && (
-                    <span style={{ fontFamily: clash, fontSize: 14, fontWeight: 600, color: '#C8F135', letterSpacing: '-0.01em' }}>
-                      S/{service.priceFrom}
-                    </span>
-                  )}
+              <Link href={`/taller/${service.id}`}>
+                <div
+                  className="relative card-hover"
+                  style={{
+                    width: 140,
+                    height: 160,
+                    clipPath: DNA.clipCard,
+                    boxShadow: DNA.shadow.card,
+                  }}
+                >
+                  <img
+                    src={SERVICE_IMAGES[service.id]}
+                    alt=""
+                    aria-hidden
+                    className="absolute inset-0 w-full h-full object-cover"
+                  />
+                  <div className="absolute inset-0 grad-cinematic" />
+                  <div className="absolute bottom-0 left-0 right-0 p-3 z-10">
+                    <h3
+                      style={{
+                        fontFamily: clash,
+                        fontSize: 14,
+                        fontWeight: 400,
+                        letterSpacing: '-0.01em',
+                        color: '#F5F0E8',
+                        lineHeight: 1.2,
+                        marginBottom: service.priceFrom ? 2 : 0,
+                      }}
+                    >
+                      {service.name}
+                    </h3>
+                    {service.priceFrom && (
+                      <span style={{ fontFamily: clash, fontSize: 14, fontWeight: 600, color: '#C8F135', letterSpacing: '-0.01em' }}>
+                        S/{service.priceFrom}
+                      </span>
+                    )}
+                  </div>
                 </div>
-              </div>
-            </Link>
+              </Link>
             </FadeInView>
           </div>
         ))}
+        {/* Spacer — garantiza padding-right real en Safari/WebKit scroll containers */}
+        <div style={{ width: 20, flexShrink: 0 }} aria-hidden />
       </div>
     </section>
   );

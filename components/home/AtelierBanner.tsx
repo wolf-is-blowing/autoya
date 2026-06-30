@@ -25,14 +25,7 @@ function CrosshairIcon() {
 
 export function AtelierBanner() {
   return (
-    <section
-      style={{
-        position: 'relative',
-        overflow: 'hidden',
-        marginBottom: DNA.spacing.sectionGap,
-        backgroundColor: '#111111',
-      }}
-    >
+    <section className="section-card" style={{ position: 'relative' }}>
       {/* Foto de fondo — interior de auto premium */}
       <img
         src="https://images.unsplash.com/photo-1617788138017-80ad40651399?w=1600&q=85&auto=format"
