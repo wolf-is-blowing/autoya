@@ -24,7 +24,7 @@ export function ServicesGrid() {
   const sliderServices = SERVICES.slice(4);
 
   return (
-    <section id="servicios" className="max-w-7xl mx-auto section-padding">
+    <section id="servicios" className="max-w-7xl mx-auto section-padding" style={{ backgroundColor: '#111111' }}>
 
       {/* Section header */}
       <FadeInView className="px-5 md:px-8">

@@ -14,7 +14,7 @@ export function HasCarSection() {
   return (
     <section
       className="max-w-7xl mx-auto px-5 md:px-8 section-padding"
-      style={{ marginBottom: DNA.spacing.sectionGap }}
+      style={{ marginBottom: DNA.spacing.sectionGap, backgroundColor: '#111111' }}
     >
       <div className="flex flex-col md:flex-row-reverse gap-8 md:gap-12 items-center">
 

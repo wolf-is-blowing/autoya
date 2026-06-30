@@ -30,6 +30,7 @@ export function AtelierBanner() {
         position: 'relative',
         overflow: 'hidden',
         marginBottom: DNA.spacing.sectionGap,
+        backgroundColor: '#111111',
       }}
     >
       {/* Foto de fondo — interior de auto premium */}

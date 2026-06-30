@@ -47,17 +47,27 @@ body {
   background-color: #111111;
   color: #F5F0E8;
   min-height: 100dvh;
-  /* NO padding-top aquí — cada página maneja su propio safe-area */
+  isolation: isolate; /* crea stacking context: z-index:-1 queda entre body-bg e in-flow content */
 }
 
-/* Hero truly borderless — cubre viewport completo incluyendo detrás del notch.
-   margin-top negativo cancela el safe-area; height lo compensa para llenar el gap. */
+/* Hero — en flujo normal, height = viewport. El fondo es position:fixed (ver .hero-bg-fixed). */
 .hero-fullbleed {
   position: relative;
-  width: 100vw;
+  width: 100%;
+  height: 100dvh;
   overflow: hidden;
-  margin-top: calc(-1 * env(safe-area-inset-top, 0px));
-  height: calc(100dvh + env(safe-area-inset-top, 0px));
+  margin: 0;
+  padding: 0;
+}
+
+/* Fondo del hero anclado al viewport físico (con viewport-fit=cover = pantalla real).
+   z-index:-1 dentro del stacking context de body (isolation:isolate):
+   queda encima del background del body pero debajo del contenido in-flow. */
+.hero-bg-fixed {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
 }
 
 /* Overlay del logo/nav anclado al hero — usa safe-area propio */

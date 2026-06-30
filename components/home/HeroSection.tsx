@@ -15,21 +15,25 @@ export function HeroSection() {
   return (
     <section className="hero-fullbleed flex flex-col justify-end">
 
-      {/* Background image — full-bleed, behind notch/Dynamic Island */}
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img
-        src="https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=1600&q=85&auto=format"
-        alt=""
-        aria-hidden
-        className="absolute inset-0 w-full h-full object-cover hero-zoom"
-        style={{ opacity: 0.5, objectPosition: 'center top' }}
-      />
-      <div className="absolute inset-0 grad-cinematic" />
-      <div className="absolute inset-0 grad-overlay-left hidden md:block" />
-      <div
-        className="absolute bottom-0 left-0 right-0 h-[50%] pointer-events-none"
-        style={{ background: 'radial-gradient(ellipse 80% 60% at 20% 100%, rgba(10,132,255,0.06) 0%, transparent 70%)' }}
-      />
+      {/* Fondo fijo al viewport — con viewport-fit=cover llega hasta detrás del Dynamic Island.
+          position:fixed + inset:0 = ocupa la pantalla física completa, sin fórmulas CSS.
+          z-index:-1 queda entre body-background e in-flow content (body usa isolation:isolate). */}
+      <div className="hero-bg-fixed">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=1600&q=85&auto=format"
+          alt=""
+          aria-hidden
+          className="absolute inset-0 w-full h-full object-cover hero-zoom"
+          style={{ opacity: 0.5, objectPosition: 'center top' }}
+        />
+        <div className="absolute inset-0 grad-cinematic" />
+        <div className="absolute inset-0 grad-overlay-left hidden md:block" />
+        <div
+          className="absolute bottom-0 left-0 right-0 h-[50%] pointer-events-none"
+          style={{ background: 'radial-gradient(ellipse 80% 60% at 20% 100%, rgba(10,132,255,0.06) 0%, transparent 70%)' }}
+        />
+      </div>
 
       {/* Logo + "Únete" overlay — anclado al hero, usa safe-area propio */}
       <div className="hero-header-overlay flex items-center justify-between z-20">
@@ -52,7 +56,7 @@ export function HeroSection() {
         </Link>
       </div>
 
-      {/* Content — paddingTop respeta safe-area + espacio visual suficiente */}
+      {/* Content */}
       <div
         className="relative z-10 w-full max-w-7xl mx-auto px-5 md:px-8"
         style={{
