@@ -12,9 +12,9 @@ const cabinet = "'Cabinet Grotesk', system-ui, sans-serif";
 
 export function HeroSection() {
   return (
-    <section className="relative min-h-dvh flex flex-col justify-end overflow-hidden">
+    <section className="hero-fullbleed relative flex flex-col justify-end overflow-hidden">
 
-      {/* Background image — zoom-out drift, covers from top */}
+      {/* Background image — zoom-out drift, truly full-bleed including behind notch */}
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         src="https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=1600&q=85&auto=format"
@@ -31,15 +31,18 @@ export function HeroSection() {
         style={{ background: 'radial-gradient(ellipse 80% 60% at 20% 100%, rgba(10,132,255,0.06) 0%, transparent 70%)' }}
       />
 
-      {/* Content — pt-20 clears fixed header, pb-[100px] clears floating BottomNav */}
-      <div className="relative z-10 w-full max-w-7xl mx-auto px-5 md:px-8 pt-20 pb-[100px]">
+      {/* Content — paddingTop clears notch + header, pb-5 reduced for BrandsGrid overlay */}
+      <div
+        className="relative z-10 w-full max-w-7xl mx-auto px-5 md:px-8 pb-5"
+        style={{ paddingTop: 'calc(env(safe-area-inset-top, 0px) + 80px)' }}
+      >
 
         {/* 1. Badge */}
         <div className="animate-fade-up mb-5">
           <Badge variant="volt">El lugar de los conductores</Badge>
         </div>
 
-        {/* 2. H1 — weight 500 (editorial, no agresivo) */}
+        {/* 2. H1 */}
         <h1
           className="animate-fade-up delay-100 mb-4"
           style={{ fontFamily: clash, fontWeight: 500, lineHeight: 1.0, letterSpacing: '-0.03em' }}
@@ -60,7 +63,7 @@ export function HeroSection() {
           Descubre tu próximo auto, agenda servicios y conéctate con tu comunidad — todo en Mouto.
         </p>
 
-        {/* 4. Stats row — before CTAs, separated by 1px surface-2 dividers */}
+        {/* 4. Stats row */}
         <div className="animate-fade-up delay-300 flex items-center mb-8">
           {STATS.map((s, i) => (
             <div key={s.label} className="flex items-center">
@@ -79,7 +82,7 @@ export function HeroSection() {
           ))}
         </div>
 
-        {/* 5. Primary CTA */}
+        {/* 5. Primary CTA + ghost link */}
         <div className="animate-fade-up delay-400 flex flex-col items-start gap-4">
           <Link
             href="/taller?tab=busqueda"
@@ -88,8 +91,6 @@ export function HeroSection() {
           >
             Encuentra tu auto
           </Link>
-
-          {/* 6. Ghost link — solo texto, sin contenedor visible */}
           <Link
             href="#servicios"
             className="text-muted hover:text-ivory transition-colors"

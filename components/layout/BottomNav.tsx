@@ -15,6 +15,8 @@ const NAV_ITEMS = [
   { id: 'perfil',   label: 'Perfil',    href: '/perfil',   Icon: NavPerfil,   protected: true  },
 ] as const;
 
+const AUTH_ROUTES = ['/acceso', '/onboarding'];
+
 export function BottomNav() {
   const pathname = usePathname();
   const router   = useRouter();
@@ -23,6 +25,9 @@ export function BottomNav() {
   useEffect(() => {
     setLoggedIn(authUtils.isLoggedIn());
   }, []);
+
+  const isAuthRoute = AUTH_ROUTES.some(r => pathname === r || pathname.startsWith(r + '/'));
+  if (isAuthRoute) return null;
 
   const handleNav = (item: (typeof NAV_ITEMS)[number], e: React.MouseEvent) => {
     if (item.protected && !loggedIn) {

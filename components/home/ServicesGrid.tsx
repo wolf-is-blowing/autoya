@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import Link from 'next/link';
 import { SERVICES } from '@/lib/data';
 import { ServiceIcon } from '@/components/icons/MoutoIcons';
@@ -23,10 +24,10 @@ export function ServicesGrid() {
   const sliderServices = SERVICES.slice(4);
 
   return (
-    <section id="servicios" className="py-16 px-5 md:px-8 max-w-7xl mx-auto">
+    <section id="servicios" className="py-16 max-w-7xl mx-auto">
 
       {/* Section header */}
-      <FadeInView>
+      <FadeInView className="px-5 md:px-8">
         <p
           className="text-muted mb-2 uppercase tracking-[0.1em]"
           style={{ fontFamily: cabinet, fontSize: 11 }}
@@ -42,7 +43,7 @@ export function ServicesGrid() {
       </FadeInView>
 
       {/* 2×2 grid — large cinematic cards */}
-      <div className="grid grid-cols-2 gap-3 mb-3">
+      <div className="grid grid-cols-2 gap-3 mb-3 px-5 md:px-8">
         {gridServices.map((service, i) => (
           <FadeInView key={service.id} delay={i * 80}>
             <Link href={service.featured ? '/taller?tab=busqueda' : `/taller/${service.id}`}>
@@ -54,8 +55,6 @@ export function ServicesGrid() {
                   boxShadow: DNA.shadow.card,
                 }}
               >
-                {/* Background image */}
-                {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src={SERVICE_IMAGES[service.id]}
                   alt=""
@@ -63,25 +62,16 @@ export function ServicesGrid() {
                   className="absolute inset-0 w-full h-full object-cover"
                   style={{ opacity: service.featured ? 0.18 : 1 }}
                 />
-
-                {/* Overlay — electric bg for featured, gradient for others */}
                 {service.featured ? (
                   <div className="absolute inset-0" style={{ background: '#0A84FF' }} />
                 ) : (
                   <div className="absolute inset-0 grad-cinematic" />
                 )}
-
-                {/* Content */}
-                <div
-                  className="absolute bottom-0 left-0 right-0 p-4 z-10"
-                  style={{ paddingBottom: 16 }}
-                >
-                  {/* Service icon */}
+                <div className="absolute bottom-0 left-0 right-0 p-4 z-10">
                   <div
                     className="mb-2 flex items-center justify-center"
                     style={{
-                      width: 32,
-                      height: 32,
+                      width: 32, height: 32,
                       borderRadius: DNA.radius.chip,
                       background: service.featured ? 'rgba(0,0,0,0.15)' : 'rgba(17,17,17,0.5)',
                       marginBottom: 8,
@@ -93,7 +83,6 @@ export function ServicesGrid() {
                       className={service.featured ? 'text-carbon' : 'text-ivory'}
                     />
                   </div>
-
                   <h3
                     style={{
                       fontFamily: clash,
@@ -107,45 +96,14 @@ export function ServicesGrid() {
                   >
                     {service.name}
                   </h3>
-
                   {service.priceFrom && (
                     <div>
-                      <span
-                        style={{
-                          fontFamily: cabinet,
-                          fontSize: 10,
-                          textTransform: 'uppercase',
-                          letterSpacing: '0.06em',
-                          color: '#8E8E93',
-                        }}
-                      >
-                        Desde{' '}
-                      </span>
-                      <span
-                        style={{
-                          fontFamily: clash,
-                          fontSize: 16,
-                          fontWeight: 600,
-                          color: '#C8F135',
-                          letterSpacing: '-0.01em',
-                        }}
-                      >
-                        S/{service.priceFrom}
-                      </span>
+                      <span style={{ fontFamily: cabinet, fontSize: 10, textTransform: 'uppercase', letterSpacing: '0.06em', color: '#8E8E93' }}>Desde </span>
+                      <span style={{ fontFamily: clash, fontSize: 16, fontWeight: 600, color: '#C8F135', letterSpacing: '-0.01em' }}>S/{service.priceFrom}</span>
                     </div>
                   )}
-
                   {service.featured && (
-                    <div
-                      style={{
-                        fontFamily: cabinet,
-                        fontSize: 12,
-                        fontWeight: 600,
-                        color: '#111111',
-                        textTransform: 'uppercase',
-                        letterSpacing: '0.04em',
-                      }}
-                    >
+                    <div style={{ fontFamily: cabinet, fontSize: 12, fontWeight: 600, color: '#111111', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
                       Empezar →
                     </div>
                   )}
@@ -156,10 +114,21 @@ export function ServicesGrid() {
         ))}
       </div>
 
-      {/* Horizontal slider — secondary services */}
-      <div className="flex gap-3 overflow-x-auto no-scrollbar snap-x-mandatory">
+      {/* Horizontal slider — secondary services, fixed card widths, px padding on both ends */}
+      <div
+        className="flex gap-3 overflow-x-auto no-scrollbar"
+        style={{
+          scrollSnapType: 'x mandatory',
+          WebkitOverflowScrolling: 'touch' as React.CSSProperties['WebkitOverflowScrolling'],
+          paddingLeft: 20,
+          paddingRight: 20,
+          paddingBottom: 4,
+        }}
+      >
         {sliderServices.map((service, i) => (
-          <FadeInView key={service.id} delay={i * 60} className="snap-center-item flex-shrink-0">
+          /* Outer div: flex item with fixed width + snap align */
+          <div key={service.id} style={{ width: 140, flexShrink: 0, scrollSnapAlign: 'start' }}>
+            <FadeInView delay={i * 60}>
             <Link href={`/taller/${service.id}`}>
               <div
                 className="relative card-hover"
@@ -170,7 +139,6 @@ export function ServicesGrid() {
                   boxShadow: DNA.shadow.card,
                 }}
               >
-                {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src={SERVICE_IMAGES[service.id]}
                   alt=""
@@ -178,7 +146,6 @@ export function ServicesGrid() {
                   className="absolute inset-0 w-full h-full object-cover"
                 />
                 <div className="absolute inset-0 grad-cinematic" />
-
                 <div className="absolute bottom-0 left-0 right-0 p-3 z-10">
                   <h3
                     style={{
@@ -194,22 +161,15 @@ export function ServicesGrid() {
                     {service.name}
                   </h3>
                   {service.priceFrom && (
-                    <span
-                      style={{
-                        fontFamily: clash,
-                        fontSize: 14,
-                        fontWeight: 600,
-                        color: '#C8F135',
-                        letterSpacing: '-0.01em',
-                      }}
-                    >
+                    <span style={{ fontFamily: clash, fontSize: 14, fontWeight: 600, color: '#C8F135', letterSpacing: '-0.01em' }}>
                       S/{service.priceFrom}
                     </span>
                   )}
                 </div>
               </div>
             </Link>
-          </FadeInView>
+            </FadeInView>
+          </div>
         ))}
       </div>
     </section>

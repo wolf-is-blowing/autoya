@@ -28,7 +28,27 @@ export const authUtils = {
 
   login(): void {
     localStorage.setItem(AUTH_KEY, 'true');
-    localStorage.setItem(USER_KEY, JSON.stringify(MOCK_USER));
+    if (!localStorage.getItem(USER_KEY)) {
+      localStorage.setItem(USER_KEY, JSON.stringify(MOCK_USER));
+    }
+  },
+
+  register(
+    name: string,
+    favoriteBrands: string[],
+    firstCar?: { brand: string; model: string; year: string }
+  ): void {
+    const user: User = {
+      ...MOCK_USER,
+      id: `u_${Date.now()}`,
+      name,
+      favoriteBrands,
+    };
+    localStorage.setItem(AUTH_KEY, 'true');
+    localStorage.setItem(USER_KEY, JSON.stringify(user));
+    if (firstCar) {
+      localStorage.setItem('mouto_first_car', JSON.stringify(firstCar));
+    }
   },
 
   logout(): void {
