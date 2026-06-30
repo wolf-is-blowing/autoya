@@ -1,8 +1,11 @@
 import Link from 'next/link';
 import { SERVICES } from '@/lib/data';
-import { ServiceIcon } from '@/components/icons';
+import { ServiceIcon } from '@/components/icons/MoutoIcons';
+import { FadeInView } from '@/components/ui/FadeInView';
+import { DNA } from '@/lib/design/dna';
 
 const SERVICE_IMAGES: Record<string, string> = {
+  busqueda:      'https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=800&q=85&auto=format',
   mantenimiento: 'https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?w=800&q=85&auto=format',
   lavado:        'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=85&auto=format',
   tapiceria:     'https://images.unsplash.com/photo-1503736334956-4c8f8e92946d?w=800&q=85&auto=format',
@@ -16,14 +19,14 @@ const clash   = "'Clash Display', system-ui, sans-serif";
 const cabinet = "'Cabinet Grotesk', system-ui, sans-serif";
 
 export function ServicesGrid() {
-  const featured  = SERVICES.find((s) => s.featured)!;
-  const secondary = SERVICES.filter((s) => !s.featured);
+  const gridServices   = SERVICES.slice(0, 4);
+  const sliderServices = SERVICES.slice(4);
 
   return (
     <section id="servicios" className="py-16 px-5 md:px-8 max-w-7xl mx-auto">
 
-      {/* Header */}
-      <div className="mb-7">
+      {/* Section header */}
+      <FadeInView>
         <p
           className="text-muted mb-2 uppercase tracking-[0.1em]"
           style={{ fontFamily: cabinet, fontSize: 11 }}
@@ -31,104 +34,182 @@ export function ServicesGrid() {
           Servicios
         </p>
         <h2
-          className="text-ivory"
-          style={{ fontFamily: clash, fontSize: 'clamp(24px, 3vw, 32px)', fontWeight: 600, letterSpacing: '-0.01em' }}
+          className="text-ivory mb-7"
+          style={{ fontFamily: clash, fontSize: 'clamp(24px, 3vw, 32px)', fontWeight: 400, letterSpacing: '-0.02em' }}
         >
           Todo para tu auto
         </h2>
-      </div>
+      </FadeInView>
 
-      {/* Grid: 2 cols mobile / 4 cols desktop */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-
-        {/* ── Card destacada — electric bg + imagen superpuesta ── */}
-        <Link href="/taller?tab=busqueda" className="col-span-2 group">
-          <div
-            className="relative overflow-hidden rounded-[20px] h-52 md:h-64 card-hover"
-            style={{ background: '#0A84FF' }}
-          >
-            {/* Car image at 20% opacity */}
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=800&q=85&auto=format"
-              alt=""
-              aria-hidden
-              className="absolute inset-0 w-full h-full object-cover"
-              style={{ opacity: 0.18, mixBlendMode: 'luminosity' }}
-            />
-
-            {/* Content */}
-            <div className="relative z-10 h-full flex flex-col justify-between p-6">
+      {/* 2×2 grid — large cinematic cards */}
+      <div className="grid grid-cols-2 gap-3 mb-3">
+        {gridServices.map((service, i) => (
+          <FadeInView key={service.id} delay={i * 80}>
+            <Link href={service.featured ? '/taller?tab=busqueda' : `/taller/${service.id}`}>
               <div
-                className="w-10 h-10 rounded-xl flex items-center justify-center"
-                style={{ background: 'rgba(0,0,0,0.15)' }}
+                className="relative card-hover"
+                style={{
+                  height: 200,
+                  clipPath: DNA.clipCard,
+                  boxShadow: DNA.shadow.card,
+                }}
               >
-                <ServiceIcon iconKey={featured.iconKey} size={20} className="text-carbon" />
-              </div>
+                {/* Background image */}
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={SERVICE_IMAGES[service.id]}
+                  alt=""
+                  aria-hidden
+                  className="absolute inset-0 w-full h-full object-cover"
+                  style={{ opacity: service.featured ? 0.18 : 1 }}
+                />
 
-              <div>
-                <h3
-                  className="text-carbon leading-tight mb-1"
-                  style={{ fontFamily: clash, fontSize: 'clamp(20px, 2.5vw, 26px)', fontWeight: 700, letterSpacing: '-0.01em' }}
-                >
-                  {featured.name}
-                </h3>
-                <p
-                  className="mb-4"
-                  style={{ fontFamily: cabinet, fontSize: 13, color: 'rgba(17,17,17,0.65)', lineHeight: 1.5 }}
-                >
-                  {featured.description}
-                </p>
+                {/* Overlay — electric bg for featured, gradient for others */}
+                {service.featured ? (
+                  <div className="absolute inset-0" style={{ background: '#0A84FF' }} />
+                ) : (
+                  <div className="absolute inset-0 grad-cinematic" />
+                )}
+
+                {/* Content */}
                 <div
-                  className="inline-flex items-center gap-2 group-hover:gap-3 transition-all"
-                  style={{ fontFamily: cabinet, fontSize: 13, fontWeight: 600, color: '#111111', textTransform: 'uppercase', letterSpacing: '0.04em' }}
+                  className="absolute bottom-0 left-0 right-0 p-4 z-10"
+                  style={{ paddingBottom: 16 }}
                 >
-                  Empezar <span aria-hidden>→</span>
+                  {/* Service icon */}
+                  <div
+                    className="mb-2 flex items-center justify-center"
+                    style={{
+                      width: 32,
+                      height: 32,
+                      borderRadius: DNA.radius.chip,
+                      background: service.featured ? 'rgba(0,0,0,0.15)' : 'rgba(17,17,17,0.5)',
+                      marginBottom: 8,
+                    }}
+                  >
+                    <ServiceIcon
+                      id={service.id}
+                      size={16}
+                      className={service.featured ? 'text-carbon' : 'text-ivory'}
+                    />
+                  </div>
+
+                  <h3
+                    style={{
+                      fontFamily: clash,
+                      fontSize: 'clamp(16px, 2.5vw, 20px)',
+                      fontWeight: 400,
+                      letterSpacing: '-0.01em',
+                      lineHeight: 1.2,
+                      color: service.featured ? '#111111' : '#F5F0E8',
+                      marginBottom: 4,
+                    }}
+                  >
+                    {service.name}
+                  </h3>
+
+                  {service.priceFrom && (
+                    <div>
+                      <span
+                        style={{
+                          fontFamily: cabinet,
+                          fontSize: 10,
+                          textTransform: 'uppercase',
+                          letterSpacing: '0.06em',
+                          color: '#8E8E93',
+                        }}
+                      >
+                        Desde{' '}
+                      </span>
+                      <span
+                        style={{
+                          fontFamily: clash,
+                          fontSize: 16,
+                          fontWeight: 600,
+                          color: '#C8F135',
+                          letterSpacing: '-0.01em',
+                        }}
+                      >
+                        S/{service.priceFrom}
+                      </span>
+                    </div>
+                  )}
+
+                  {service.featured && (
+                    <div
+                      style={{
+                        fontFamily: cabinet,
+                        fontSize: 12,
+                        fontWeight: 600,
+                        color: '#111111',
+                        textTransform: 'uppercase',
+                        letterSpacing: '0.04em',
+                      }}
+                    >
+                      Empezar →
+                    </div>
+                  )}
                 </div>
               </div>
-            </div>
-          </div>
-        </Link>
+            </Link>
+          </FadeInView>
+        ))}
+      </div>
 
-        {/* ── Cards secundarias — cinematic ── */}
-        {secondary.map((service) => (
-          <Link key={service.id} href={`/taller/${service.id}`} className="group">
-            <div className="relative overflow-hidden rounded-[20px] h-48 md:h-64 card-hover">
-              {/* Imagen de fondo */}
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src={SERVICE_IMAGES[service.id] ?? 'https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=800&q=85&auto=format'}
-                alt=""
-                aria-hidden
-                className="absolute inset-0 w-full h-full object-cover"
-              />
+      {/* Horizontal slider — secondary services */}
+      <div className="flex gap-3 overflow-x-auto no-scrollbar snap-x-mandatory">
+        {sliderServices.map((service, i) => (
+          <FadeInView key={service.id} delay={i * 60} className="snap-center-item flex-shrink-0">
+            <Link href={`/taller/${service.id}`}>
+              <div
+                className="relative card-hover"
+                style={{
+                  width: 140,
+                  height: 160,
+                  clipPath: DNA.clipCard,
+                  boxShadow: DNA.shadow.card,
+                }}
+              >
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={SERVICE_IMAGES[service.id]}
+                  alt=""
+                  aria-hidden
+                  className="absolute inset-0 w-full h-full object-cover"
+                />
+                <div className="absolute inset-0 grad-cinematic" />
 
-              {/* Gradiente de carbon — unión imagen con fondo */}
-              <div className="absolute inset-0 grad-cinematic" />
-
-              {/* Contenido superpuesto al fondo */}
-              <div className="absolute bottom-0 left-0 right-0 p-4 z-10">
-                <h3
-                  className="text-ivory leading-tight mb-1"
-                  style={{ fontFamily: cabinet, fontSize: 16, fontWeight: 600 }}
-                >
-                  {service.name}
-                </h3>
-                {service.priceFrom && (
-                  <div style={{ fontFamily: cabinet, fontSize: 12 }}>
-                    <span className="text-muted uppercase tracking-[0.06em]" style={{ fontSize: 10 }}>
-                      Desde{' '}
-                    </span>
+                <div className="absolute bottom-0 left-0 right-0 p-3 z-10">
+                  <h3
+                    style={{
+                      fontFamily: clash,
+                      fontSize: 14,
+                      fontWeight: 400,
+                      letterSpacing: '-0.01em',
+                      color: '#F5F0E8',
+                      lineHeight: 1.2,
+                      marginBottom: service.priceFrom ? 2 : 0,
+                    }}
+                  >
+                    {service.name}
+                  </h3>
+                  {service.priceFrom && (
                     <span
-                      style={{ fontFamily: clash, fontSize: 18, fontWeight: 700, color: '#C8F135', letterSpacing: '-0.01em' }}
+                      style={{
+                        fontFamily: clash,
+                        fontSize: 14,
+                        fontWeight: 600,
+                        color: '#C8F135',
+                        letterSpacing: '-0.01em',
+                      }}
                     >
                       S/{service.priceFrom}
                     </span>
-                  </div>
-                )}
+                  )}
+                </div>
               </div>
-            </div>
-          </Link>
+            </Link>
+          </FadeInView>
         ))}
       </div>
     </section>
