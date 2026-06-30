@@ -1,0 +1,194 @@
+import type { CSSProperties } from 'react';
+
+interface IconProps {
+  className?: string;
+  size?: number;
+  style?: CSSProperties;
+}
+
+// ── Nav Icons ──────────────────────────────────────────────────────────────
+
+export function NavHome({ className = '', size = 24, style }: IconProps) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" className={className} style={style} aria-hidden>
+      {/* Horizon line */}
+      <line x1="3" y1="15" x2="21" y2="15" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+      {/* Road perspective lines */}
+      <line x1="3" y1="21" x2="12" y2="8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+      <line x1="21" y1="21" x2="12" y2="8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+      {/* Destination arc */}
+      <path d="M9.5 8 A2.5 2.5 0 0 1 14.5 8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" fill="none"/>
+    </svg>
+  );
+}
+
+export function NavParque({ className = '', size = 24, style }: IconProps) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" className={className} style={style} aria-hidden>
+      {/* Key ring */}
+      <circle cx="5.5" cy="12" r="2.5" stroke="currentColor" strokeWidth="1.5"/>
+      {/* Key shaft */}
+      <line x1="8" y1="12" x2="20" y2="12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+      {/* Blade 1 */}
+      <line x1="14" y1="12" x2="14" y2="9" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+      {/* Blade 2 */}
+      <line x1="18" y1="12" x2="18" y2="9" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+    </svg>
+  );
+}
+
+export function NavTaller({ className = '', size = 24, style }: IconProps) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" className={className} style={style} aria-hidden>
+      {/* Handle at 45° */}
+      <line x1="5" y1="19" x2="15" y2="9" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+      {/* Outer jaw arc */}
+      <path d="M12.5 10.5 A4 4 0 0 1 19.5 10.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" fill="none"/>
+      {/* Inner jaw arc */}
+      <path d="M13.8 10.5 A2.5 2.5 0 0 1 18.2 10.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" fill="none"/>
+    </svg>
+  );
+}
+
+export function NavCaravana({ className = '', size = 24, style }: IconProps) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" className={className} style={style} aria-hidden>
+      {/* Three ovals in ascending diagonal */}
+      <ellipse cx="5" cy="16" rx="3.5" ry="2.2" stroke="currentColor" strokeWidth="1.5"/>
+      <ellipse cx="12" cy="12" rx="4.5" ry="2.8" stroke="currentColor" strokeWidth="1.5"/>
+      <ellipse cx="19" cy="8"  rx="3.5" ry="2.2" stroke="currentColor" strokeWidth="1.5"/>
+    </svg>
+  );
+}
+
+export function NavPerfil({ className = '', size = 24, style }: IconProps) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" className={className} style={style} aria-hidden>
+      {/* Helmet dome */}
+      <path d="M5 16 C5 9.8 8.1 4.5 12 4.5 C15.9 4.5 19 9.8 19 16"
+        stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+      {/* Chin bar */}
+      <path d="M5 16 L5 18.5 C5 19.3 5.7 20 6.5 20 L17.5 20 C18.3 20 19 19.3 19 18.5 L19 16"
+        stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+      {/* Visor — 2px gap from dome walls */}
+      <rect x="7" y="13.5" width="10" height="3.5"
+        stroke="currentColor" strokeWidth="1.5" rx="1"/>
+    </svg>
+  );
+}
+
+// ── Service Icons ──────────────────────────────────────────────────────────
+
+export function ServiceIcon({
+  id,
+  className = '',
+  size = 24,
+}: { id: string } & IconProps) {
+  const stroke = { stroke: 'currentColor', strokeWidth: 1.5, strokeLinecap: 'round' as const, strokeLinejoin: 'round' as const, fill: 'none' };
+
+  const icons: Record<string, React.ReactNode> = {
+    busqueda: (
+      <>
+        <circle cx="11" cy="11" r="7" {...stroke}/>
+        <line x1="16.5" y1="16.5" x2="21" y2="21" {...stroke}/>
+      </>
+    ),
+    lavado: (
+      <>
+        <path d="M12 2 C6 8 4 12 4 15 a8 8 0 0 0 16 0 c0-3-2-7-8-13z" {...stroke}/>
+        <path d="M9 15 a3 3 0 0 0 6 0" {...stroke}/>
+      </>
+    ),
+    mantenimiento: (
+      <>
+        <line x1="5" y1="19" x2="15" y2="9" {...stroke}/>
+        <path d="M12.5 10.5 A4 4 0 0 1 19.5 10.5" {...stroke}/>
+        <path d="M13.8 10.5 A2.5 2.5 0 0 1 18.2 10.5" {...stroke}/>
+      </>
+    ),
+    styling: (
+      <>
+        <path d="M12 3 L13.4 8.5 L19 8.5 L14.3 11.9 L15.7 17.4 L12 13.5 L8.3 17.4 L9.7 11.9 L5 8.5 L10.6 8.5 Z" {...stroke}/>
+      </>
+    ),
+    tapiceria: (
+      <>
+        <rect x="3" y="7" width="18" height="12" rx="3" {...stroke}/>
+        <path d="M3 12 L21 12" {...stroke}/>
+        <path d="M9 7 L9 19" {...stroke}/>
+        <path d="M15 7 L15 19" {...stroke}/>
+      </>
+    ),
+    audio: (
+      <>
+        <circle cx="12" cy="12" r="9" {...stroke}/>
+        <circle cx="12" cy="12" r="5" {...stroke}/>
+        <circle cx="12" cy="12" r="1.5" fill="currentColor" stroke="none"/>
+      </>
+    ),
+    exterior: (
+      <>
+        <path d="M2 12 L5 9 L9 7 L15 7 L19 9 L22 12" {...stroke}/>
+        <path d="M2 12 L22 12" {...stroke}/>
+        <circle cx="6" cy="15" r="2" {...stroke}/>
+        <circle cx="18" cy="15" r="2" {...stroke}/>
+        <path d="M8 15 L16 15" {...stroke}/>
+      </>
+    ),
+    performance: (
+      <>
+        <path d="M5 19 L12 6 L19 19" {...stroke}/>
+        <path d="M8 14 L16 14" {...stroke}/>
+      </>
+    ),
+  };
+
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" className={className} aria-hidden>
+      {icons[id] ?? icons['busqueda']}
+    </svg>
+  );
+}
+
+// ── Utility Icons ──────────────────────────────────────────────────────────
+
+export function IconSearch({ className = '', size = 20 }: IconProps) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" className={className} aria-hidden>
+      <circle cx="11" cy="11" r="7" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+      <line x1="16.5" y1="16.5" x2="21" y2="21" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+    </svg>
+  );
+}
+
+export function IconBell({ className = '', size = 20 }: IconProps) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" className={className} aria-hidden>
+      <path d="M18 8 A6 6 0 0 0 6 8 c0 7-3 9-3 9 h18 s-3-2-3-9"
+        stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+      <path d="M13.73 21 a2 2 0 0 1-3.46 0"
+        stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+    </svg>
+  );
+}
+
+export function IconSteeringWheel({ className = '', size = 24 }: IconProps) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" className={className} aria-hidden>
+      <circle cx="12" cy="12" r="9.5" stroke="currentColor" strokeWidth="1.5"/>
+      <circle cx="12" cy="12" r="2.5" fill="currentColor"/>
+      <path d="M12 9.5 L12 3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+      <path d="M9.5 12 L2.5 12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+      <path d="M14.5 12 L21.5 12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+    </svg>
+  );
+}
+
+export function IconShield({ className = '', size = 24 }: IconProps) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" className={className} aria-hidden>
+      <path d="M12 2 L19 5 L19 11 C19 15.4 15.9 19.5 12 21 C8.1 19.5 5 15.4 5 11 L5 5 Z"
+        stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+    </svg>
+  );
+}

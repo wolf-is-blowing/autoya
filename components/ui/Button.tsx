@@ -1,11 +1,11 @@
 import type { ReactNode, ButtonHTMLAttributes } from 'react';
+import { DNA } from '@/lib/design/dna';
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: 'primary' | 'secondary' | 'volt' | 'ghost';
   size?: 'sm' | 'md' | 'lg';
   children: ReactNode;
   fullWidth?: boolean;
-  pill?: boolean;
 }
 
 const variants = {
@@ -25,9 +25,9 @@ export function Button({
   variant = 'primary',
   size = 'md',
   fullWidth = false,
-  pill = true,
   children,
   className = '',
+  style,
   ...props
 }: ButtonProps) {
   return (
@@ -35,15 +35,19 @@ export function Button({
       className={`
         inline-flex items-center justify-center font-medium
         uppercase tracking-[0.04em]
-        transition-all duration-150 active:scale-[0.97] cursor-pointer
+        transition-all active:scale-[0.98] hover:scale-[1.02] cursor-pointer
         disabled:opacity-40 disabled:cursor-not-allowed
         ${variants[variant]}
         ${sizes[size]}
-        ${pill ? 'rounded-full' : 'rounded-xl'}
         ${fullWidth ? 'w-full' : ''}
         ${className}
       `}
-      style={{ fontFamily: "'Cabinet Grotesk', system-ui, sans-serif" }}
+      style={{
+        fontFamily: "'Cabinet Grotesk', system-ui, sans-serif",
+        borderRadius: DNA.radius.button,
+        transitionDuration: DNA.duration.base,
+        ...style,
+      }}
       {...props}
     >
       {children}
