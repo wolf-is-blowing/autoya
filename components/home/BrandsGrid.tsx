@@ -15,7 +15,7 @@ const ICON_SLUG: Record<string, string> = {
   chevrolet:  'chevrolet',
   volkswagen: 'volkswagen',
   bmw:        'bmw',
-  mercedes:   'mercedesbenz',
+  /* mercedes: SimpleIcons no tiene este slug verificado — usa initials fallback */
   audi:       'audi',
   suzuki:     'suzuki',
   mitsubishi: 'mitsubishi',

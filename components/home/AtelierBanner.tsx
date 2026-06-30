@@ -1,8 +1,27 @@
+/* eslint-disable @next/next/no-img-element */
 import Link from 'next/link';
 import { DNA } from '@/lib/design/dna';
 
 const clash   = "'Clash Display', system-ui, sans-serif";
 const cabinet = "'Cabinet Grotesk', system-ui, sans-serif";
+
+/* Acento exclusivo Atelier — NO usar en ningún otro componente */
+const ATELIER = '#B026FF';
+const ATELIER_GLOW = '0 0 28px rgba(176,38,255,0.35)';
+
+const PILLS = ['Renders en segundos', 'Sin compromiso', '100% IA'];
+
+function CrosshairIcon() {
+  return (
+    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden>
+      <circle cx="10" cy="10" r="3.2" stroke={ATELIER} strokeWidth="1.4" />
+      <line x1="10" y1="0"  x2="10" y2="5"  stroke={ATELIER} strokeWidth="1.2" strokeLinecap="round" />
+      <line x1="10" y1="15" x2="10" y2="20" stroke={ATELIER} strokeWidth="1.2" strokeLinecap="round" />
+      <line x1="0"  y1="10" x2="5"  y2="10" stroke={ATELIER} strokeWidth="1.2" strokeLinecap="round" />
+      <line x1="15" y1="10" x2="20" y2="10" stroke={ATELIER} strokeWidth="1.2" strokeLinecap="round" />
+    </svg>
+  );
+}
 
 export function AtelierBanner() {
   return (
@@ -11,39 +30,66 @@ export function AtelierBanner() {
         position: 'relative',
         overflow: 'hidden',
         marginBottom: DNA.spacing.sectionGap,
-        /* No padding lateral — full width */
       }}
     >
-      {/* Base gradient */}
-      <div
-        className="absolute inset-0"
+      {/* Foto de fondo — interior de auto premium */}
+      <img
+        src="https://images.unsplash.com/photo-1617788138017-80ad40651399?w=1600&q=85&auto=format"
+        alt=""
+        aria-hidden
         style={{
-          background: 'linear-gradient(135deg, #111111 0%, rgba(10,132,255,0.07) 50%, rgba(200,241,53,0.03) 100%)',
+          position: 'absolute',
+          inset: 0,
+          width: '100%',
+          height: '100%',
+          objectFit: 'cover',
+          opacity: 0.30,
         }}
       />
 
-      {/* Diagonal line pattern a 11° (ángulo DNA) */}
+      {/* Grilla técnica tipo CAD — solo el acento Atelier */}
       <div
-        className="absolute inset-0"
+        aria-hidden
         style={{
-          backgroundImage: 'repeating-linear-gradient(11deg, transparent 0px, transparent 40px, rgba(10,132,255,0.05) 40px, rgba(10,132,255,0.05) 41px)',
+          position: 'absolute',
+          inset: 0,
+          backgroundImage: [
+            'repeating-linear-gradient(0deg,   rgba(176,38,255,0.07) 0px, transparent 1px, transparent 40px)',
+            'repeating-linear-gradient(90deg,  rgba(176,38,255,0.07) 0px, transparent 1px, transparent 40px)',
+          ].join(','),
           pointerEvents: 'none',
         }}
       />
 
-      {/* Top border glow */}
+      {/* Gradiente oscuro diagonal para legibilidad */}
       <div
-        className="absolute top-0 left-0 right-0 h-px"
-        style={{ background: 'linear-gradient(90deg, transparent, rgba(10,132,255,0.4), rgba(200,241,53,0.3), transparent)' }}
+        aria-hidden
+        style={{
+          position: 'absolute',
+          inset: 0,
+          background: 'linear-gradient(135deg, rgba(17,17,17,0.35) 0%, rgba(17,17,17,0.92) 100%)',
+        }}
       />
 
-      {/* Content */}
+      {/* Borde superior en acento Atelier */}
       <div
-        className="relative z-10 max-w-7xl mx-auto px-5 md:px-8"
-        style={{ paddingTop: 60, paddingBottom: 60 }}
+        aria-hidden
+        style={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          right: 0,
+          height: 1,
+          background: `linear-gradient(90deg, transparent, ${ATELIER}, rgba(176,38,255,0.3), transparent)`,
+        }}
+      />
+
+      {/* Contenido */}
+      <div
+        className="relative z-10 max-w-7xl mx-auto px-5 md:px-8 section-padding"
       >
-        {/* Beta badge */}
-        <div className="mb-5">
+        {/* Badge BETA — usa paleta Mouto estándar (único elemento compartido) */}
+        <div className="mb-6">
           <span
             style={{
               background: 'rgba(200,241,53,0.12)',
@@ -54,7 +100,7 @@ export function AtelierBanner() {
               fontFamily: cabinet,
               fontSize: 11,
               fontWeight: 700,
-              textTransform: 'uppercase',
+              textTransform: 'uppercase' as const,
               letterSpacing: '0.08em',
             }}
           >
@@ -62,21 +108,41 @@ export function AtelierBanner() {
           </span>
         </div>
 
-        <div className="flex flex-col md:flex-row md:items-end gap-6 md:gap-12">
+        <div className="flex flex-col md:flex-row md:items-end gap-8 md:gap-16">
           <div className="flex-1">
+
+            {/* Crosshair + eyebrow — identidad visual Atelier */}
+            <div className="flex items-center gap-2 mb-4">
+              <CrosshairIcon />
+              <span
+                style={{
+                  fontFamily: cabinet,
+                  fontSize: 11,
+                  fontWeight: 600,
+                  color: ATELIER,
+                  textTransform: 'uppercase' as const,
+                  letterSpacing: '0.10em',
+                }}
+              >
+                Sub-producto Mouto
+              </span>
+            </div>
+
+            {/* Wordmark Atelier — mayor que el H1 del hero */}
             <h2
               style={{
                 fontFamily: clash,
-                fontSize: 'clamp(48px, 10vw, 80px)',
-                fontWeight: 500,
-                letterSpacing: '-0.04em',
-                lineHeight: 0.95,
+                fontSize: 'clamp(64px, 14vw, 96px)',
+                fontWeight: 400,
+                letterSpacing: '0.02em',
+                lineHeight: 0.92,
                 color: '#F5F0E8',
-                marginBottom: 16,
+                marginBottom: 20,
               }}
             >
               Atelier
             </h2>
+
             <p
               style={{
                 fontFamily: cabinet,
@@ -89,39 +155,59 @@ export function AtelierBanner() {
             >
               El visualizer de mejoras para tu auto, potenciado por IA.
             </p>
+
             <p
               style={{
                 fontFamily: cabinet,
                 fontSize: 14,
-                color: 'rgba(245,240,232,0.5)',
-                letterSpacing: '0.01em',
+                color: 'rgba(245,240,232,0.40)',
+                marginBottom: 28,
               }}
             >
               Mira cómo queda antes de modificarlo.
             </p>
+
+            {/* Feature pills — identidad Atelier */}
+            <div className="flex flex-wrap gap-2">
+              {PILLS.map((label) => (
+                <span
+                  key={label}
+                  style={{
+                    border: `1px solid rgba(176,38,255,0.30)`,
+                    color: ATELIER,
+                    padding: '6px 14px',
+                    borderRadius: 9999,
+                    fontFamily: cabinet,
+                    fontSize: 12,
+                    fontWeight: 500,
+                  }}
+                >
+                  {label}
+                </span>
+              ))}
+            </div>
           </div>
 
+          {/* CTA — acento Atelier exclusivo, nunca volt */}
           <div className="flex-shrink-0">
             <Link href="/atelier">
               <div
                 style={{
-                  background: '#0A84FF',
+                  background: ATELIER,
                   color: '#F5F0E8',
                   padding: '16px 32px',
-                  borderRadius: 14,
+                  borderRadius: DNA.radius.button,
                   fontFamily: cabinet,
                   fontSize: 14,
                   fontWeight: 500,
-                  textTransform: 'uppercase',
+                  textTransform: 'uppercase' as const,
                   letterSpacing: '0.06em',
                   display: 'inline-flex',
                   alignItems: 'center',
                   gap: 8,
-                  boxShadow: DNA.shadow.glow,
+                  boxShadow: ATELIER_GLOW,
                   cursor: 'pointer',
-                  transition: 'filter 150ms, transform 150ms',
                 }}
-                className="hover:brightness-110 active:brightness-95"
               >
                 Probar Atelier
                 <span style={{ fontSize: 16 }}>→</span>

@@ -11,7 +11,7 @@ const SERVICE_IMAGES: Record<string, string> = {
   lavado:        'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=85&auto=format',
   tapiceria:     'https://images.unsplash.com/photo-1503736334956-4c8f8e92946d?w=800&q=85&auto=format',
   styling:       'https://images.unsplash.com/photo-1611651338412-8403fa6e3599?w=800&q=85&auto=format',
-  audio:         'https://images.unsplash.com/photo-1608665343022-2ca1d0a05c07?w=800&q=85&auto=format',
+  audio:         'https://images.unsplash.com/photo-1524253482453-3fed8d2fe12b?w=800&q=85&auto=format',
   exterior:      'https://images.unsplash.com/photo-1549399542-7e3f8b79c341?w=800&q=85&auto=format',
   performance:   'https://images.unsplash.com/photo-1547744152-14d985cb937f?w=800&q=85&auto=format',
 };
@@ -24,7 +24,7 @@ export function ServicesGrid() {
   const sliderServices = SERVICES.slice(4);
 
   return (
-    <section id="servicios" className="max-w-7xl mx-auto" style={{ paddingTop: 16, paddingBottom: 64 }}>
+    <section id="servicios" className="max-w-7xl mx-auto section-padding">
 
       {/* Section header */}
       <FadeInView className="px-5 md:px-8">
@@ -116,7 +116,7 @@ export function ServicesGrid() {
 
       {/* Horizontal slider — secondary services, fixed card widths, px padding on both ends */}
       <div
-        className="flex gap-3 overflow-x-auto no-scrollbar"
+        className="flex gap-3 overflow-x-auto no-scrollbar services-slider"
         style={{
           scrollSnapType: 'x mandatory',
           WebkitOverflowScrolling: 'touch' as React.CSSProperties['WebkitOverflowScrolling'],

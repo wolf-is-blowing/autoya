@@ -13,7 +13,7 @@ const POINTS = [
 export function NoCarSection() {
   return (
     <section
-      className="max-w-7xl mx-auto px-5 md:px-8"
+      className="max-w-7xl mx-auto px-5 md:px-8 section-padding"
       style={{ marginBottom: DNA.spacing.sectionGap }}
     >
       <div className="flex flex-col md:flex-row gap-8 md:gap-12 items-center">

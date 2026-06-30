@@ -50,14 +50,14 @@ body {
   /* NO padding-top aquí — cada página maneja su propio safe-area */
 }
 
-/* Hero truly borderless — cubre viewport completo incluyendo detrás del notch */
+/* Hero truly borderless — cubre viewport completo incluyendo detrás del notch.
+   margin-top negativo cancela el safe-area; height lo compensa para llenar el gap. */
 .hero-fullbleed {
   position: relative;
   width: 100vw;
-  height: 100dvh;
-  margin: 0;
-  padding: 0;
   overflow: hidden;
+  margin-top: calc(-1 * env(safe-area-inset-top, 0px));
+  height: calc(100dvh + env(safe-area-inset-top, 0px));
 }
 
 /* Overlay del logo/nav anclado al hero — usa safe-area propio */
@@ -78,8 +78,8 @@ body {
   margin-top: -40px;
   border-radius: 32px;
   background: #111111;
-  padding-top: 32px;
-  padding-bottom: 32px;
+  padding-top: 48px;
+  padding-bottom: 48px;
   margin-bottom: 64px;
   z-index: 10;
 }
@@ -95,11 +95,23 @@ body {
   scroll-snap-type: x mandatory;
   scroll-behavior: smooth;
   -webkit-overflow-scrolling: touch;
+  touch-action: pan-x; /* FIX: primer drag activa scroll inmediatamente */
   scrollbar-width: none;
   -ms-overflow-style: none;
   padding-bottom: 4px;
 }
 .brands-grid-2row::-webkit-scrollbar { display: none; }
+
+/* Slider horizontal genérico — tap inmediato */
+.services-slider {
+  touch-action: pan-x;
+}
+
+/* Espaciado vertical estándar entre secciones */
+.section-padding {
+  padding-top: 48px;
+  padding-bottom: 48px;
+}
 
 /* ── Scrollbar ── */
 ::-webkit-scrollbar       { width: 4px; height: 4px; }

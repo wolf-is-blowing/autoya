@@ -54,8 +54,11 @@ export function HeroSection() {
 
       {/* Content — paddingTop respeta safe-area + espacio visual suficiente */}
       <div
-        className="relative z-10 w-full max-w-7xl mx-auto px-5 md:px-8 pb-8"
-        style={{ paddingTop: 'calc(env(safe-area-inset-top, 20px) + 80px)' }}
+        className="relative z-10 w-full max-w-7xl mx-auto px-5 md:px-8"
+        style={{
+          paddingTop: 'calc(env(safe-area-inset-top, 20px) + 80px)',
+          paddingBottom: '48px',
+        }}
       >
         <div className="animate-fade-up mb-5">
           <Badge variant="volt">El lugar de los conductores</Badge>

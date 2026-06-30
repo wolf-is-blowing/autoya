@@ -13,7 +13,7 @@ const POINTS = [
 export function HasCarSection() {
   return (
     <section
-      className="max-w-7xl mx-auto px-5 md:px-8"
+      className="max-w-7xl mx-auto px-5 md:px-8 section-padding"
       style={{ marginBottom: DNA.spacing.sectionGap }}
     >
       <div className="flex flex-col md:flex-row-reverse gap-8 md:gap-12 items-center">
@@ -31,7 +31,7 @@ export function HasCarSection() {
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src="https://images.unsplash.com/photo-1613214049841-53f5f3a6a2a7?w=800&q=80&auto=format"
+            src="https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=800&q=80&auto=format"
             alt=""
             aria-hidden
             style={{ width: '100%', height: '100%', objectFit: 'cover' }}
