@@ -11,9 +11,10 @@ interface IconProps {
 export function NavHome({ className = '', size = 24, style }: IconProps) {
   return (
     <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className} style={style} aria-hidden>
-      <path d="M3,10 L12,3 L21,10"/>
-      <path d="M5,10 V20 H19 V10"/>
-      <path d="M9,20 V14 H15 V20"/>
+      {/* Techo con ángulo DNA de 11° — pico más agudo, no isósceles perfecto */}
+      <path d="M2,11 L12,2 L22,11"/>
+      <path d="M4,11 V21 H20 V11"/>
+      <path d="M9,21 V15 H15 V21"/>
     </svg>
   );
 }
@@ -21,9 +22,11 @@ export function NavHome({ className = '', size = 24, style }: IconProps) {
 export function NavParque({ className = '', size = 24, style }: IconProps) {
   return (
     <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className} style={style} aria-hidden>
-      <path d="M2,14 H22 V10 Q20,6 16,6 H8 Q4,6 2,10 Z"/>
-      <circle cx="6"  cy="14" r="2.5"/>
-      <circle cx="18" cy="14" r="2.5"/>
+      {/* Key fob — apertura remota de auto */}
+      <rect x="7" y="2" width="10" height="16" rx="5"/>
+      <circle cx="12" cy="8" r="2.2"/>
+      <line x1="12" y1="14" x2="12" y2="16"/>
+      <path d="M10,19 Q12,22 14,19"/>
     </svg>
   );
 }

@@ -47,24 +47,40 @@ body {
   background-color: #111111;
   color: #F5F0E8;
   min-height: 100dvh;
-  /* Safe-area push for notch/Dynamic Island — cancelled per-section by hero-fullbleed */
-  padding-top: env(safe-area-inset-top, 0px);
+  /* NO padding-top aquí — cada página maneja su propio safe-area */
 }
 
-/* Hero truly borderless — extends behind Dynamic Island/notch */
+/* Hero truly borderless — cubre viewport completo incluyendo detrás del notch */
 .hero-fullbleed {
-  margin-top: calc(env(safe-area-inset-top, 0px) * -1);
-  height: calc(100dvh + env(safe-area-inset-top, 0px));
+  position: relative;
+  width: 100vw;
+  height: 100dvh;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
 }
 
-/* BrandsGrid curved sheet */
+/* Overlay del logo/nav anclado al hero — usa safe-area propio */
+.hero-header-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  padding-top: calc(env(safe-area-inset-top, 20px) + 12px);
+  padding-left: 20px;
+  padding-right: 20px;
+  z-index: 20;
+}
+
+/* BrandsGrid — isla flotante con curva completa (arriba y abajo) */
 .brands-section {
   position: relative;
   margin-top: -40px;
-  border-top-left-radius: 32px;
-  border-top-right-radius: 32px;
+  border-radius: 32px;
   background: #111111;
   padding-top: 32px;
+  padding-bottom: 32px;
+  margin-bottom: 64px;
   z-index: 10;
 }
 

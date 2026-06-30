@@ -46,4 +46,9 @@ export const DNA = {
     inOut: 'cubic-bezier(0.45, 0, 0.55, 1)',
     drift: 'cubic-bezier(0.4, 0, 0.6, 1)',
   },
+
+  // Espaciado entre secciones del home — fuente única
+  spacing: {
+    sectionGap: '64px',
+  },
 } as const;

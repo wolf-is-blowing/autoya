@@ -1,15 +1,21 @@
-import { PageWrapper }  from '@/components/layout/PageWrapper';
-import { HeroSection }  from '@/components/home/HeroSection';
-import { BrandsGrid }   from '@/components/home/BrandsGrid';
-import { ServicesGrid } from '@/components/home/ServicesGrid';
+import { HeroSection }   from '@/components/home/HeroSection';
+import { BrandsGrid }    from '@/components/home/BrandsGrid';
+import { ServicesGrid }  from '@/components/home/ServicesGrid';
+import { NoCarSection }  from '@/components/home/NoCarSection';
+import { HasCarSection } from '@/components/home/HasCarSection';
+import { AtelierBanner } from '@/components/home/AtelierBanner';
+import { Footer }        from '@/components/layout/Footer';
 
 export default function HomePage() {
   return (
-    <PageWrapper noBottomPad>
+    <main>
       <HeroSection />
       <BrandsGrid />
       <ServicesGrid />
-      <div className="h-[88px]" />
-    </PageWrapper>
+      <NoCarSection />
+      <HasCarSection />
+      <AtelierBanner />
+      <Footer />
+    </main>
   );
 }

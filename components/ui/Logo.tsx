@@ -1,16 +1,18 @@
-const clash = "'Clash Display', system-ui, sans-serif";
 const cabinet = "'Cabinet Grotesk', system-ui, sans-serif";
 
 interface LogoProps {
   variant?: 'full' | 'icon' | 'wordmark';
   size?: 'sm' | 'md' | 'lg';
+  transparent?: boolean;
 }
 
 const iconSizes = { sm: 28, md: 36, lg: 48 };
 const textSizes = { sm: 18, md: 24, lg: 32 };
 
-/** Mouto isotipo — M geométrico como dos arcos de circuito */
-export function MoutoIsotipo({ size = 28 }: { size?: number }) {
+/** Mouto isotipo — M geométrico como dos arcos de circuito.
+ *  transparent=true omite el rect de fondo carbon — ideal sobre imágenes o slots con su propio bg.
+ */
+export function MoutoIsotipo({ size = 28, transparent = false }: { size?: number; transparent?: boolean }) {
   return (
     <svg
       width={size}
@@ -20,15 +22,7 @@ export function MoutoIsotipo({ size = 28 }: { size?: number }) {
       xmlns="http://www.w3.org/2000/svg"
       aria-label="Mouto"
     >
-      {/* Background square — carbón */}
-      <rect width="40" height="40" rx="10" fill="#111111" />
-
-      {/*
-        Dos arcos que forman una M geométrica:
-        - Arco izquierdo: sube desde abajo-izquierda hasta el centro
-        - Arco derecho: baja desde el centro hasta abajo-derecha
-        Juntos forman la silueta de un doble arco / trayectoria
-      */}
+      {!transparent && <rect width="40" height="40" rx="10" fill="#111111" />}
       <path
         d="M 7 32 C 7 32 7 12 14 12 C 21 12 21 28 21 28"
         stroke="#F5F0E8"
@@ -43,18 +37,16 @@ export function MoutoIsotipo({ size = 28 }: { size?: number }) {
         strokeLinecap="round"
         fill="none"
       />
-
-      {/* Punto volt de aceleración en el vértice central */}
       <circle cx="21" cy="28" r="2.4" fill="#C8F135" />
     </svg>
   );
 }
 
-export function Logo({ variant = 'full', size = 'md' }: LogoProps) {
+export function Logo({ variant = 'full', size = 'md', transparent = false }: LogoProps) {
   const iconPx = iconSizes[size];
   const textPx = textSizes[size];
 
-  if (variant === 'icon') return <MoutoIsotipo size={iconPx} />;
+  if (variant === 'icon') return <MoutoIsotipo size={iconPx} transparent={transparent} />;
 
   if (variant === 'wordmark') {
     return (
@@ -65,19 +57,10 @@ export function Logo({ variant = 'full', size = 'md' }: LogoProps) {
     );
   }
 
-  /* full: isotipo + wordmark */
   return (
     <div className="flex items-center gap-2">
-      <MoutoIsotipo size={iconPx} />
-      <span
-        style={{
-          fontFamily: cabinet,
-          fontWeight: 700,
-          fontSize: textPx,
-          letterSpacing: '-0.01em',
-          lineHeight: 1,
-        }}
-      >
+      <MoutoIsotipo size={iconPx} transparent={transparent} />
+      <span style={{ fontFamily: cabinet, fontWeight: 700, fontSize: textPx, letterSpacing: '-0.01em', lineHeight: 1 }}>
         <span style={{ color: '#F5F0E8' }}>mout</span>
         <span style={{ color: '#0A84FF' }}>o</span>
       </span>

@@ -13,7 +13,7 @@ import { DNA } from '@/lib/design/dna';
 const ICON_SLUG: Record<string, string> = {
   toyota: 'toyota',     hyundai: 'hyundai',   kia: 'kia',
   nissan: 'nissan',     chevrolet: 'chevrolet', volkswagen: 'volkswagen',
-  bmw: 'bmw',           mercedes: 'mercedes',  audi: 'audi',
+  bmw: 'bmw',           mercedes: 'mercedesbenz',  audi: 'audi',
   suzuki: 'suzuki',     mitsubishi: 'mitsubishi', honda: 'honda',
   mazda: 'mazda',       ford: 'ford',          renault: 'renault',
   peugeot: 'peugeot',  jeep: 'jeep',          volvo: 'volvo',

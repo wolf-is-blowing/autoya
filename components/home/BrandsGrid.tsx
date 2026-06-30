@@ -15,7 +15,7 @@ const ICON_SLUG: Record<string, string> = {
   chevrolet:  'chevrolet',
   volkswagen: 'volkswagen',
   bmw:        'bmw',
-  mercedes:   'mercedes',
+  mercedes:   'mercedesbenz',
   audi:       'audi',
   suzuki:     'suzuki',
   mitsubishi: 'mitsubishi',
