@@ -2,6 +2,7 @@
 import { useState } from 'react';
 import { ServiceIcon } from '@/components/icons/MoutoIcons';
 import { DNA } from '@/lib/design/dna';
+import { BookingForm } from './BookingForm';
 import type { Service, ServiceOption } from '@/types';
 
 const clash   = "'Clash Display', system-ui, sans-serif";
@@ -13,7 +14,8 @@ interface ServiceRowProps {
 }
 
 export function ServiceRow({ service, options }: ServiceRowProps) {
-  const [open, setOpen] = useState(false);
+  const [open,       setOpen]       = useState(false);
+  const [bookingOpt, setBookingOpt] = useState<ServiceOption | null>(null);
 
   return (
     <div style={{
@@ -148,21 +150,24 @@ export function ServiceRow({ service, options }: ServiceRowProps) {
                     {opt.description}
                   </p>
 
-                  <button style={{
-                    marginTop: 10,
-                    width: '100%',
-                    padding: '9px',
-                    borderRadius: DNA.radius.button,
-                    border: `1.5px solid ${service.accentColor}50`,
-                    background: 'transparent',
-                    color: service.accentColor,
-                    fontFamily: cabinet,
-                    fontSize: 12,
-                    fontWeight: 500,
-                    textTransform: 'uppercase' as const,
-                    letterSpacing: '0.05em',
-                    cursor: 'pointer',
-                  }}>
+                  <button
+                    onClick={() => setBookingOpt(opt)}
+                    style={{
+                      marginTop: 10,
+                      width: '100%',
+                      padding: '9px',
+                      borderRadius: DNA.radius.button,
+                      border: `1.5px solid ${service.accentColor}50`,
+                      background: 'transparent',
+                      color: service.accentColor,
+                      fontFamily: cabinet,
+                      fontSize: 12,
+                      fontWeight: 500,
+                      textTransform: 'uppercase' as const,
+                      letterSpacing: '0.05em',
+                      cursor: 'pointer',
+                    }}
+                  >
                     Agendar
                   </button>
                 </div>
@@ -182,6 +187,13 @@ export function ServiceRow({ service, options }: ServiceRowProps) {
             </div>
           )}
         </div>
+      )}
+      {bookingOpt && (
+        <BookingForm
+          service={service}
+          option={bookingOpt}
+          onClose={() => setBookingOpt(null)}
+        />
       )}
     </div>
   );

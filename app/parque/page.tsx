@@ -4,12 +4,15 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { authUtils } from '@/lib/auth';
-import { MOCK_OWNED_CARS, MOCK_CARS, MOCK_QUOTATIONS } from '@/lib/data';
-import { CarCard } from '@/components/parque/CarCard';
-import { QuotationCard } from '@/components/parque/QuotationCard';
-import { PageWrapper } from '@/components/layout/PageWrapper';
-import { Button } from '@/components/ui/Button';
-import type { User } from '@/types';
+import { MOCK_OWNED_CARS, MOCK_CARS, MOCK_QUOTATIONS, INITIAL_CAR_STATES } from '@/lib/data';
+import { CarCard }           from '@/components/parque/CarCard';
+import { QuotationCard }     from '@/components/parque/QuotationCard';
+import { DrivingModeButton } from '@/components/parque/DrivingModeButton';
+import { PageWrapper }       from '@/components/layout/PageWrapper';
+import { Button }            from '@/components/ui/Button';
+import { calculateHealthScore } from '@/lib/health-score';
+import { getCarState }          from '@/lib/driving-mode';
+import type { User, HealthScoreFactors } from '@/types';
 
 const clash   = "'Clash Display', system-ui, sans-serif";
 const cabinet = "'Cabinet Grotesk', system-ui, sans-serif";
@@ -80,9 +83,10 @@ function EmptyQuotations() {
 
 export default function ParquePage() {
   const router  = useRouter();
-  const [ready, setReady]  = useState(false);
-  const [tab,   setTab]    = useState<Tab>('autos');
-  const [user,  setUser]   = useState<User | null>(null);
+  const [ready,        setReady]        = useState(false);
+  const [tab,          setTab]          = useState<Tab>('autos');
+  const [user,         setUser]         = useState<User | null>(null);
+  const [healthScores, setHealthScores] = useState<Record<string, HealthScoreFactors>>({});
 
   useEffect(() => {
     if (!authUtils.isLoggedIn()) {
@@ -91,6 +95,14 @@ export default function ParquePage() {
     }
     setUser(authUtils.getUser());
     setReady(true);
+    // Compute health scores client-side (reads localStorage)
+    const scores: Record<string, HealthScoreFactors> = {};
+    for (const oc of MOCK_OWNED_CARS) {
+      const init  = INITIAL_CAR_STATES[oc.id];
+      const state = getCarState(oc.id, init?.currentKm ?? oc.km, init?.lastServiceDate);
+      scores[oc.id] = calculateHealthScore(state.currentKm, state.lastServiceDate);
+    }
+    setHealthScores(scores);
   }, [router]);
 
   if (!ready) return null;
@@ -152,6 +164,13 @@ export default function ParquePage() {
           </div>
         </div>
 
+        {/* ── Modo Conducción ── */}
+        {tab === 'autos' && ownedWithCar.length > 0 && (
+          <div style={{ marginBottom: 20 }}>
+            <DrivingModeButton ownedCars={ownedWithCar} />
+          </div>
+        )}
+
         {/* ── Tabs ── */}
         <div style={{
           display: 'grid',
@@ -209,7 +228,12 @@ export default function ParquePage() {
               ) : (
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 20, paddingBottom: 20 }}>
                   {ownedWithCar.map(({ ownedCar, car }) => (
-                    <CarCard key={ownedCar.id} ownedCar={ownedCar} car={car} />
+                    <CarCard
+                      key={ownedCar.id}
+                      ownedCar={ownedCar}
+                      car={car}
+                      healthScore={healthScores[ownedCar.id]}
+                    />
                   ))}
                 </div>
               )}

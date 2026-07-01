@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { DNA } from '@/lib/design/dna';
 import { FadeInView } from '@/components/ui/FadeInView';
 import { ServiceQuickAction } from './ServiceQuickAction';
-import type { OwnedCar, Car } from '@/types';
+import type { OwnedCar, Car, HealthScoreFactors } from '@/types';
 
 const clash   = "'Clash Display', system-ui, sans-serif";
 const cabinet = "'Cabinet Grotesk', system-ui, sans-serif";
@@ -21,11 +21,12 @@ const STATUS_STYLE: Record<string, { bg: string; color: string; label: string }>
 };
 
 interface CarCardProps {
-  ownedCar: OwnedCar;
-  car: Car;
+  ownedCar:    OwnedCar;
+  car:         Car;
+  healthScore?: HealthScoreFactors;
 }
 
-export function CarCard({ ownedCar, car }: CarCardProps) {
+export function CarCard({ ownedCar, car, healthScore }: CarCardProps) {
   const status     = getRevisionStatus(ownedCar.km);
   const statusStyle = STATUS_STYLE[status];
   const brandLabel  = `${car.model} · ${car.version}`;
@@ -76,7 +77,7 @@ export function CarCard({ ownedCar, car }: CarCardProps) {
 
         {/* Info */}
         <div style={{ padding: '16px 16px 12px' }}>
-          {/* Nombre + badge revisión */}
+          {/* Nombre + health dot + badge revisión */}
           <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: 8, marginBottom: 4 }}>
             <h3 style={{
               fontFamily: clash,
@@ -88,21 +89,26 @@ export function CarCard({ ownedCar, car }: CarCardProps) {
             }}>
               {ownedCar.nickname ?? car.model}
             </h3>
-            <span style={{
-              flexShrink: 0,
-              background: statusStyle.bg,
-              color: statusStyle.color,
-              borderRadius: 9999,
-              padding: '3px 8px',
-              fontFamily: cabinet,
-              fontSize: 10,
-              fontWeight: 700,
-              textTransform: 'uppercase',
-              letterSpacing: '0.08em',
-              marginTop: 3,
-            }}>
-              {statusStyle.label}
-            </span>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginTop: 3, flexShrink: 0 }}>
+              {healthScore && (
+                <div
+                  title={`Health: ${healthScore.label}`}
+                  style={{
+                    width: 8, height: 8, borderRadius: '50%',
+                    background: DNA.healthScoreColors[healthScore.label],
+                    flexShrink: 0,
+                  }}
+                />
+              )}
+              <span style={{
+                background: statusStyle.bg, color: statusStyle.color,
+                borderRadius: 9999, padding: '3px 8px',
+                fontFamily: cabinet, fontSize: 10, fontWeight: 700,
+                textTransform: 'uppercase', letterSpacing: '0.08em',
+              }}>
+                {statusStyle.label}
+              </span>
+            </div>
           </div>
 
           {/* Marca + modelo */}

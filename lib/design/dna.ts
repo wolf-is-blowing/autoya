@@ -51,4 +51,12 @@ export const DNA = {
   spacing: {
     sectionGap: '64px',
   },
+
+  // Health Score — colores según estado del auto
+  healthScoreColors: {
+    'excelente':          '#C8F135', // volt
+    'bueno':              '#0A84FF', // electric
+    'regular':            '#FFB800', // amber
+    'requiere atención':  '#FF3B30', // red
+  },
 } as const;

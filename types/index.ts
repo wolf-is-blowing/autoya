@@ -92,6 +92,101 @@ export interface Caravana {
   image: string;
   tags: string[];
   isPrivate: boolean;
+  // TODO: future social feed — when the diary system supports sharing,
+  // emit events like 'member_completed_service' | 'member_reached_milestone'
+  // here so the caravana feed can pull from each member's AutoDiaryEntry.
+  // Do not build the feed UI yet — just leave this marker.
+}
+
+// ── Ruta — feed social ────────────────────────────────────────────────────
+
+export type PostType =
+  | 'atelier_share'
+  | 'question'
+  | 'marketplace'
+  | 'announcement'
+  | 'launch'
+  | 'industry_news'
+  | 'brand_news'
+  | 'memory_share';
+
+export interface RutaPost {
+  id: string;
+  type: PostType;
+  authorId: string;         // 'mouto_editorial' para contenido curado
+  authorName: string;
+  authorAvatar: string | null;
+  caravanaId: string | null;
+  createdAt: string;        // ISO
+  title: string;
+  body: string;
+  imageUrl: string | null;
+  linkedCarId?: string;     // para memory_share
+  price?: number;           // para marketplace
+  brandSlug?: string;       // para launch/brand_news
+  sourceLabel?: string;     // para industry_news
+  reactionsCount: number;
+  commentsCount: number;
+  isPinned?: boolean;
+}
+
+export interface RutaComment {
+  id: string;
+  postId: string;
+  authorName: string;
+  body: string;
+  createdAt: string;
+}
+
+// ── Auto Vivo ──────────────────────────────────────────────────────────────
+
+export interface Trip {
+  id: string;
+  ownedCarId: string;
+  startTime: string; // ISO
+  endTime?: string;
+  startLocation?: string;
+  endLocation?: string;
+  distanceKm?: number;
+  duration?: number; // minutes
+  status: 'active' | 'completed';
+}
+
+export interface TripMemory {
+  id: string;
+  ownedCarId: string;
+  tripId?: string;
+  photo: string; // Unsplash URL (mock)
+  caption: string;
+  location?: string; // always user-entered text, never raw GPS
+  createdAt: string; // ISO
+}
+
+export type DiaryEntryType = 'trip' | 'service' | 'memory' | 'milestone';
+
+export interface AutoDiaryEntry {
+  id: string;
+  ownedCarId: string;
+  type: DiaryEntryType;
+  title: string;
+  description?: string;
+  date: string; // ISO
+  kmAtEntry?: number;
+  milestoneKm?: number;
+}
+
+export interface HealthScoreFactors {
+  overall: number; // 0-100
+  maintenanceScore: number;
+  mileageScore: number;
+  timeSinceServiceScore: number;
+  label: 'excelente' | 'bueno' | 'regular' | 'requiere atención';
+}
+
+export interface CarState {
+  currentKm: number;
+  lastServiceDate?: string; // ISO date
+  pendingMilestones: number[]; // km values to mark (not yet celebrated)
 }
 
 export interface User {
