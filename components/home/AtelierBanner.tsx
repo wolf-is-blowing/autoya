@@ -117,7 +117,7 @@ export function AtelierBanner() {
 
       {/* Fondo — interior de auto premium oscuro */}
       <img
-        src="https://images.unsplash.com/photo-1617469767053-d3b523a0b982?w=1600&q=85&auto=format"
+        src="/images/atelier-hero.png"
         alt=""
         aria-hidden
         style={{
