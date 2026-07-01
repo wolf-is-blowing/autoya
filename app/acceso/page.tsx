@@ -1,32 +1,87 @@
+'use client';
+
+import { Suspense } from 'react';
 import Link from 'next/link';
-import { Logo }   from '@/components/ui/Logo';
-import { Button } from '@/components/ui/Button';
-import { IconClose } from '@/components/icons/MoutoIcons';
+import { useSearchParams } from 'next/navigation';
+import { Logo }            from '@/components/ui/Logo';
+import { Button }          from '@/components/ui/Button';
+import { IconClose }        from '@/components/icons/MoutoIcons';
 import { GoogleSignInButton } from '@/components/auth/GoogleSignInButton';
 
 const clash   = "'Clash Display', system-ui, sans-serif";
 const cabinet = "'Cabinet Grotesk', system-ui, sans-serif";
 
+function AccesoContent() {
+  const searchParams = useSearchParams();
+  const redirect     = searchParams.get('redirect') ?? '/';
+  const loginHref    = redirect !== '/' ? `/acceso/login?redirect=${encodeURIComponent(redirect)}` : '/acceso/login';
+  const onboardHref  = redirect !== '/' ? `/onboarding?redirect=${encodeURIComponent(redirect)}`   : '/onboarding';
+
+  return (
+    <div className="relative z-10 flex flex-col items-center flex-1 px-6 pt-16 pb-12">
+      {/* Logo */}
+      <div className="animate-fade-up mb-16">
+        <Logo variant="full" size="lg" />
+      </div>
+
+      {/* Headline */}
+      <div className="animate-fade-up delay-100 text-center max-w-[300px] mb-auto">
+        <h1 style={{
+          fontFamily: clash,
+          fontSize: 'clamp(36px, 9vw, 52px)',
+          fontWeight: 500,
+          letterSpacing: '-0.03em',
+          lineHeight: 1.05,
+          color: '#F5F0E8',
+        }}>
+          Tu lugar como conductor.
+        </h1>
+        <p className="text-muted mt-4" style={{ fontFamily: cabinet, fontSize: 15, lineHeight: 1.6 }}>
+          Encuentra tu auto, agenda servicios y conecta con tu comunidad.
+        </p>
+      </div>
+
+      {/* CTAs */}
+      <div className="animate-fade-up delay-200 w-full max-w-sm flex flex-col gap-3 mt-16">
+        <Link href={onboardHref}>
+          <Button variant="volt" size="lg" fullWidth>Crear cuenta gratis</Button>
+        </Link>
+        <Link href={loginHref}>
+          <Button variant="secondary" size="lg" fullWidth>Ya tengo cuenta</Button>
+        </Link>
+
+        {/* Divisor */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: 12, margin: '4px 0' }}>
+          <div style={{ flex: 1, height: 1, background: '#2C2C2E' }} />
+          <span style={{ fontFamily: cabinet, fontSize: 12, color: '#8E8E93', whiteSpace: 'nowrap' }}>
+            o continúa con
+          </span>
+          <div style={{ flex: 1, height: 1, background: '#2C2C2E' }} />
+        </div>
+
+        <GoogleSignInButton redirectTo={redirect} />
+
+        <p className="text-center text-muted mt-1" style={{ fontFamily: cabinet, fontSize: 12 }}>
+          Es gratis. Siempre.
+        </p>
+      </div>
+    </div>
+  );
+}
+
 export default function AccesoPage() {
   return (
     <div className="min-h-dvh bg-carbon flex flex-col relative overflow-hidden">
 
-      {/* Background glow */}
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          background: 'radial-gradient(ellipse 100% 50% at 50% 110%, rgba(10,132,255,0.10) 0%, transparent 65%)',
-        }}
-      />
-      {/* Subtle top-left glow */}
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          background: 'radial-gradient(ellipse 60% 40% at 10% 0%, rgba(200,241,53,0.04) 0%, transparent 60%)',
-        }}
-      />
+      {/* Background glows */}
+      <div className="absolute inset-0 pointer-events-none" style={{
+        background: 'radial-gradient(ellipse 100% 50% at 50% 110%, rgba(10,132,255,0.10) 0%, transparent 65%)',
+      }} />
+      <div className="absolute inset-0 pointer-events-none" style={{
+        background: 'radial-gradient(ellipse 60% 40% at 10% 0%, rgba(200,241,53,0.04) 0%, transparent 60%)',
+      }} />
 
-      {/* X — close button back to home */}
+      {/* X — close */}
       <Link
         href="/"
         className="fixed z-50 flex items-center justify-center"
@@ -46,68 +101,9 @@ export default function AccesoPage() {
         <IconClose size={18} />
       </Link>
 
-      {/* Content */}
-      <div className="relative z-10 flex flex-col items-center flex-1 px-6 pt-16 pb-12">
-
-        {/* Logo */}
-        <div className="animate-fade-up mb-16">
-          <Logo variant="full" size="lg" />
-        </div>
-
-        {/* Headline */}
-        <div className="animate-fade-up delay-100 text-center max-w-[300px] mb-auto">
-          <h1
-            style={{
-              fontFamily: clash,
-              fontSize: 'clamp(36px, 9vw, 52px)',
-              fontWeight: 500,
-              letterSpacing: '-0.03em',
-              lineHeight: 1.05,
-              color: '#F5F0E8',
-            }}
-          >
-            Tu lugar como conductor.
-          </h1>
-          <p
-            className="text-muted mt-4"
-            style={{ fontFamily: cabinet, fontSize: 15, lineHeight: 1.6 }}
-          >
-            Encuentra tu auto, agenda servicios y conecta con tu comunidad.
-          </p>
-        </div>
-
-        {/* CTAs */}
-        <div className="animate-fade-up delay-200 w-full max-w-sm flex flex-col gap-3 mt-16">
-          <Link href="/onboarding">
-            <Button variant="volt" size="lg" fullWidth>
-              Crear cuenta gratis
-            </Button>
-          </Link>
-          <Link href="/acceso/login">
-            <Button variant="secondary" size="lg" fullWidth>
-              Ya tengo cuenta
-            </Button>
-          </Link>
-
-          {/* Divisor */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: 12, margin: '4px 0' }}>
-            <div style={{ flex: 1, height: 1, background: '#2C2C2E' }} />
-            <span style={{ fontFamily: cabinet, fontSize: 12, color: '#8E8E93', whiteSpace: 'nowrap' }}>
-              o continúa con
-            </span>
-            <div style={{ flex: 1, height: 1, background: '#2C2C2E' }} />
-          </div>
-
-          <GoogleSignInButton />
-
-          <p
-            className="text-center text-muted mt-1"
-            style={{ fontFamily: cabinet, fontSize: 12 }}
-          >
-            Es gratis. Siempre.
-          </p>
-        </div>
-      </div>
+      <Suspense>
+        <AccesoContent />
+      </Suspense>
     </div>
   );
 }

@@ -40,7 +40,11 @@ function Spinner() {
   );
 }
 
-export function GoogleSignInButton() {
+interface GoogleSignInButtonProps {
+  redirectTo?: string;
+}
+
+export function GoogleSignInButton({ redirectTo = '/' }: GoogleSignInButtonProps) {
   const router   = useRouter();
   const [loading, setLoading] = useState(false);
 
@@ -62,7 +66,7 @@ export function GoogleSignInButton() {
       favoriteBrands: [],
     }));
 
-    router.push('/');
+    router.push(redirectTo);
   };
 
   return (
