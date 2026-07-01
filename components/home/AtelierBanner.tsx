@@ -126,7 +126,8 @@ export function AtelierBanner() {
           width: '100%',
           height: '100%',
           objectFit: 'cover',
-          opacity: 0.35,
+          objectPosition: 'center 55%',
+          opacity: 0.80,
         }}
       />
 
@@ -150,7 +151,7 @@ export function AtelierBanner() {
         style={{
           position: 'absolute',
           inset: 0,
-          background: 'linear-gradient(135deg, rgba(17,17,17,0.30) 0%, rgba(17,17,17,0.90) 100%)',
+          background: 'linear-gradient(to right, rgba(17,17,17,0.80) 0%, rgba(17,17,17,0.25) 55%, rgba(17,17,17,0.05) 100%)',
         }}
       />
 
