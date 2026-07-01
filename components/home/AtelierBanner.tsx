@@ -26,48 +26,40 @@ function CrosshairIcon() {
 /* Jarvis HUD overlay — purely decorative SVG */
 function JarvisOverlay() {
   /* All coordinates in viewBox 0 0 1000 600 (preserveAspectRatio=none) */
-  const stroke     = `rgba(176,38,255,0.35)`;
-  const strokeDot  = `rgba(176,38,255,0.60)`;
-  const textColor  = `rgba(176,38,255,0.80)`;
-  const BRACKET    = 28; /* bracket arm length */
+  const stroke    = `rgba(176,38,255,0.35)`;
+  const strokeDot = `rgba(176,38,255,0.60)`;
+  const textColor = `rgba(176,38,255,0.80)`;
+  const BRACKET   = 20;
 
-  /* Central target rectangle */
-  const R = { x: 140, y: 75, w: 720, h: 450 };
+  /* Rect encloses the dashboard area — 60-90% vertical, 70% wide centered */
+  const R = { x: 150, y: 360, w: 700, h: 180 };
 
-  /* Measurement points: [cx, cy, lineDir(-1|1), label] */
-  const POINTS: [number, number, -1 | 1, string][] = [
-    [R.x + 30,        R.y + R.h / 2,    -1, 'STEERING: 98%'],
-    [R.x + R.w - 30,  R.y + 80,          1, 'DASH: OK'],
-    [R.x + R.w / 2,   R.y + R.h - 30,   -1, 'INTERIOR: ANALIZANDO'],
+  /* Horizontal measurement points: [cx, cy, dir(-1|1), label, delay] */
+  const H_POINTS: [number, number, -1 | 1, string, number][] = [
+    [200, 300,  1, 'STEERING: 98%', 0],
+    [800, 290, -1, 'DASH: OK',      800],
   ];
+
+  /* Vertical measurement point — bottom center, line goes up, pulsing */
+  const V = { cx: 500, cy: 540, label: 'INTERIOR: ANALIZANDO', delay: 1600 };
 
   return (
     <svg
       aria-hidden
-      style={{
-        position: 'absolute',
-        inset: 0,
-        width: '100%',
-        height: '100%',
-        pointerEvents: 'none',
-        zIndex: 3,
-      }}
+      style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', pointerEvents: 'none', zIndex: 3 }}
       viewBox="0 0 1000 600"
       preserveAspectRatio="none"
     >
-      {/* Target rectangle */}
-      <rect
-        x={R.x} y={R.y} width={R.w} height={R.h}
-        fill="none" stroke={stroke} strokeWidth="1"
-      />
+      {/* Dashboard target rectangle */}
+      <rect x={R.x} y={R.y} width={R.w} height={R.h} fill="none" stroke={stroke} strokeWidth="1" />
 
       {/* Corner brackets */}
-      {[
+      {([
         [R.x, R.y],
         [R.x + R.w, R.y],
         [R.x, R.y + R.h],
         [R.x + R.w, R.y + R.h],
-      ].map(([cx, cy], idx) => {
+      ] as [number, number][]).map(([cx, cy], idx) => {
         const sx = cx === R.x ? -1 : 1;
         const sy = cy === R.y ? -1 : 1;
         return (
@@ -78,9 +70,8 @@ function JarvisOverlay() {
         );
       })}
 
-      {/* Measurement points with fade-in then pulse */}
-      {POINTS.map(([cx, cy, dir, label], idx) => {
-        const delay      = idx * 800;  /* 0, 800, 1600ms */
+      {/* Horizontal measurement points */}
+      {H_POINTS.map(([cx, cy, dir, label, delay]) => {
         const pulseStart = delay + 700;
         const anim = `hud-fade-in 600ms ease ${delay}ms 1 both, hud-pulse 2000ms ease-in-out ${pulseStart}ms infinite`;
         const lineX2 = cx + dir * 60;
@@ -88,15 +79,12 @@ function JarvisOverlay() {
         return (
           <g key={label} style={{ animation: anim }}>
             <circle cx={cx} cy={cy} r="4" fill={strokeDot} />
-            <line x1={cx + dir * 5} y1={cy} x2={lineX2} y2={cy}
-              stroke={strokeDot} strokeWidth="1" />
+            <line x1={cx + dir * 5} y1={cy} x2={lineX2} y2={cy} stroke={strokeDot} strokeWidth="1" />
             <text
               x={textX} y={cy + 4}
-              fill={textColor}
-              fontSize="16"
+              fill={textColor} fontSize="16"
               fontFamily="'Cabinet Grotesk', system-ui, sans-serif"
-              fontWeight="600"
-              letterSpacing="1.5"
+              fontWeight="600" letterSpacing="1.5"
               textAnchor={dir === 1 ? 'start' : 'end'}
             >
               {label}
@@ -104,6 +92,21 @@ function JarvisOverlay() {
           </g>
         );
       })}
+
+      {/* Vertical measurement point — pulsing */}
+      <g style={{ animation: `hud-fade-in 600ms ease ${V.delay}ms 1 both, hud-pulse 2000ms ease-in-out ${V.delay + 700}ms infinite` }}>
+        <circle cx={V.cx} cy={V.cy} r="4" fill={strokeDot} />
+        <line x1={V.cx} y1={V.cy - 5} x2={V.cx} y2={V.cy - 45} stroke={strokeDot} strokeWidth="1" />
+        <text
+          x={V.cx} y={V.cy - 52}
+          fill={textColor} fontSize="16"
+          fontFamily="'Cabinet Grotesk', system-ui, sans-serif"
+          fontWeight="600" letterSpacing="1.5"
+          textAnchor="middle"
+        >
+          {V.label}
+        </text>
+      </g>
     </svg>
   );
 }
@@ -114,7 +117,7 @@ export function AtelierBanner() {
 
       {/* Fondo — interior de auto premium oscuro */}
       <img
-        src="https://images.unsplash.com/photo-1583121274602-3e2820c69888?w=1600&q=85&auto=format"
+        src="https://images.unsplash.com/photo-1617469767053-d3b523a0b982?w=1600&q=85&auto=format"
         alt=""
         aria-hidden
         style={{

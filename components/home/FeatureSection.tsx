@@ -34,7 +34,7 @@ export function FeatureSection({
   return (
     <section className="section-card">
       <div className="max-w-7xl mx-auto px-5 md:px-8" style={{ paddingTop: DNA.spacing.sectionGap, paddingBottom: '48px' }}>
-        <div className={`flex ${flexDir} gap-8 md:gap-12 items-center`}>
+        <div className={`flex ${flexDir} gap-8 md:gap-12 md:items-center`}>
 
           {/* Image slot — always first in DOM = always top on mobile */}
           <div
