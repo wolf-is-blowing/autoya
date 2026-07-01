@@ -2,17 +2,19 @@ import type { ReactNode, ButtonHTMLAttributes } from 'react';
 import { DNA } from '@/lib/design/dna';
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: 'primary' | 'secondary' | 'volt' | 'ghost';
+  variant?: 'primary' | 'secondary' | 'volt' | 'ghost' | 'ghost-volt' | 'ghost-electric';
   size?: 'sm' | 'md' | 'lg';
   children: ReactNode;
   fullWidth?: boolean;
 }
 
-const variants = {
-  primary:   'bg-electric text-carbon hover:brightness-110 active:brightness-95',
-  secondary: 'bg-transparent border border-electric/40 text-electric hover:bg-electric/10',
-  volt:      'bg-volt text-carbon hover:brightness-110 active:brightness-95',
-  ghost:     'bg-transparent text-ivory/60 hover:text-ivory',
+const variants: Record<NonNullable<ButtonProps['variant']>, string> = {
+  primary:        'bg-electric text-carbon hover:brightness-110 active:brightness-95',
+  secondary:      'bg-transparent border border-electric/40 text-electric hover:bg-electric/10',
+  volt:           'bg-volt text-carbon hover:brightness-110 active:brightness-95',
+  ghost:          'bg-transparent text-ivory/60 hover:text-ivory',
+  'ghost-volt':   'bg-transparent border-[1.5px] border-volt text-volt hover:bg-volt/10 active:bg-volt active:text-carbon',
+  'ghost-electric': 'bg-transparent border-[1.5px] border-electric text-electric hover:bg-electric/10 active:bg-electric active:text-ivory',
 };
 
 const sizes = {
@@ -45,7 +47,7 @@ export function Button({
       style={{
         fontFamily: "'Cabinet Grotesk', system-ui, sans-serif",
         borderRadius: DNA.radius.button,
-        transitionDuration: DNA.duration.base,
+        transitionDuration: DNA.duration.fast,
         ...style,
       }}
       {...props}

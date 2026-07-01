@@ -167,6 +167,10 @@ body {
 .animate-fade-in    { animation: fade-in  0.4s ease both; }
 .animate-volt-blink { animation: volt-blink 2s ease-in-out infinite; }
 
+/* HUD / Jarvis overlay — AtelierBanner */
+@keyframes hud-fade-in { from { opacity: 0; } to { opacity: 1; } }
+@keyframes hud-pulse   { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+
 .hero-zoom { animation: hero-zoom 6000ms cubic-bezier(0.4, 0, 0.6, 1) forwards; }
 
 .delay-100 { animation-delay: 100ms; }

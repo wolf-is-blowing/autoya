@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { Logo }   from '@/components/ui/Logo';
 import { Button } from '@/components/ui/Button';
 import { IconClose } from '@/components/icons/MoutoIcons';
+import { GoogleSignInButton } from '@/components/auth/GoogleSignInButton';
 
 const clash   = "'Clash Display', system-ui, sans-serif";
 const cabinet = "'Cabinet Grotesk', system-ui, sans-serif";
@@ -87,6 +88,18 @@ export default function AccesoPage() {
               Ya tengo cuenta
             </Button>
           </Link>
+
+          {/* Divisor */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: 12, margin: '4px 0' }}>
+            <div style={{ flex: 1, height: 1, background: '#2C2C2E' }} />
+            <span style={{ fontFamily: cabinet, fontSize: 12, color: '#8E8E93', whiteSpace: 'nowrap' }}>
+              o continúa con
+            </span>
+            <div style={{ flex: 1, height: 1, background: '#2C2C2E' }} />
+          </div>
+
+          <GoogleSignInButton />
+
           <p
             className="text-center text-muted mt-1"
             style={{ fontFamily: cabinet, fontSize: 12 }}

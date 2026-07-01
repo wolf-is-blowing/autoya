@@ -103,9 +103,25 @@ export function ServicesGrid() {
                       <span style={{ fontFamily: clash, fontSize: 16, fontWeight: 600, color: '#C8F135', letterSpacing: '-0.01em' }}>S/{service.priceFrom}</span>
                     </div>
                   )}
-                  {service.featured && (
+                  {service.featured ? (
                     <div style={{ fontFamily: cabinet, fontSize: 12, fontWeight: 600, color: '#111111', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
                       Empezar →
+                    </div>
+                  ) : (
+                    <div style={{
+                      display: 'inline-flex',
+                      marginTop: 6,
+                      border: '1.5px solid rgba(200,241,53,0.65)',
+                      color: '#C8F135',
+                      borderRadius: 9999,
+                      padding: '3px 10px',
+                      fontFamily: cabinet,
+                      fontSize: 10,
+                      fontWeight: 600,
+                      textTransform: 'uppercase',
+                      letterSpacing: '0.06em',
+                    }}>
+                      Agendar
                     </div>
                   )}
                 </div>
