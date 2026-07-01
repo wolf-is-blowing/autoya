@@ -9,12 +9,16 @@ import { CaravanaCard, TYPE_META } from '@/components/caravana/CaravanaCard';
 import { FadeInView } from '@/components/ui/FadeInView';
 import { PageWrapper } from '@/components/layout/PageWrapper';
 import { DNA } from '@/lib/design/dna';
-import type { User } from '@/types';
+import { QuestionComposer } from '@/components/ruta/QuestionComposer';
+import { RutaFilters }      from '@/components/ruta/RutaFilters';
+import { RutaFeed }         from '@/components/ruta/RutaFeed';
+import type { FeedFilter }  from '@/lib/ruta';
+import type { RutaPost, User } from '@/types';
 
 const clash   = "'Clash Display', system-ui, sans-serif";
 const cabinet = "'Cabinet Grotesk', system-ui, sans-serif";
 
-type Tab       = 'mis' | 'descubrir';
+type Tab       = 'mis' | 'descubrir' | 'ruta';
 type TypeFilter = 'todo' | 'brand' | 'color' | 'amigos';
 
 const FILTERS: { id: TypeFilter; label: string }[] = [
@@ -29,11 +33,13 @@ const JOINED_IDS = new Set(['ca_001', 'ca_002', 'ca_003']);
 
 export default function CaravanaPage() {
   const router = useRouter();
-  const [ready,   setReady]   = useState(false);
-  const [user,    setUser]    = useState<User | null>(null);
-  const [tab,     setTab]     = useState<Tab>('mis');
-  const [filter,  setFilter]  = useState<TypeFilter>('todo');
-  const [joined,  setJoined]  = useState<Set<string>>(JOINED_IDS);
+  const [ready,      setReady]      = useState(false);
+  const [user,       setUser]       = useState<User | null>(null);
+  const [tab,        setTab]        = useState<Tab>('mis');
+  const [filter,     setFilter]     = useState<TypeFilter>('todo');
+  const [feedFilter, setFeedFilter] = useState<FeedFilter>('todo');
+  const [joined,     setJoined]     = useState<Set<string>>(JOINED_IDS);
+  const [latestPost, setLatestPost] = useState<RutaPost | null>(null);
 
   useEffect(() => {
     if (!authUtils.isLoggedIn()) {
@@ -61,6 +67,12 @@ export default function CaravanaPage() {
     });
   }
 
+  const TABS: { id: Tab; label: string }[] = [
+    { id: 'mis',       label: 'Mis Caravanas' },
+    { id: 'descubrir', label: 'Descubrir'     },
+    { id: 'ruta',      label: 'Ruta'          },
+  ];
+
   return (
     <PageWrapper>
       <div style={{ padding: '0 20px' }}>
@@ -86,14 +98,11 @@ export default function CaravanaPage() {
         {/* ── Tabs ── */}
         <div style={{
           display: 'grid',
-          gridTemplateColumns: '1fr 1fr',
+          gridTemplateColumns: '1fr 1fr 1fr',
           borderBottom: '1px solid rgba(255,255,255,0.08)',
           marginBottom: 24,
         }}>
-          {([
-            { id: 'mis' as Tab,       label: 'Mis Caravanas' },
-            { id: 'descubrir' as Tab, label: 'Descubrir'     },
-          ]).map(({ id, label }) => {
+          {TABS.map(({ id, label }) => {
             const isActive = tab === id;
             return (
               <button
@@ -105,7 +114,7 @@ export default function CaravanaPage() {
                   borderBottom: isActive ? '2px solid #C8F135' : '2px solid transparent',
                   background: 'transparent',
                   fontFamily: cabinet,
-                  fontSize: 14,
+                  fontSize: 13,
                   fontWeight: isActive ? 600 : 400,
                   color: isActive ? '#F5F0E8' : '#8E8E93',
                   cursor: 'pointer',
@@ -115,11 +124,11 @@ export default function CaravanaPage() {
                 {label}
                 {id === 'mis' && myCaravanas.length > 0 && (
                   <span style={{
-                    marginLeft: 6,
+                    marginLeft: 5,
                     background: '#0A84FF',
                     color: '#F5F0E8',
                     borderRadius: 9999,
-                    padding: '1px 6px',
+                    padding: '1px 5px',
                     fontSize: 10, fontWeight: 700,
                   }}>
                     {myCaravanas.length}
@@ -341,6 +350,21 @@ export default function CaravanaPage() {
                 ))}
               </div>
             )}
+          </div>
+        )}
+
+        {/* ── TAB: RUTA ── */}
+        {tab === 'ruta' && (
+          <div>
+            <QuestionComposer
+              onPublished={(post) => {
+                setLatestPost(post);
+                setFeedFilter('todo');
+              }}
+            />
+            <RutaFilters active={feedFilter} onChange={setFeedFilter} />
+            <div style={{ height: 16 }} />
+            <RutaFeed filter={feedFilter} newPost={latestPost} />
           </div>
         )}
 
