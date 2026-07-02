@@ -177,6 +177,64 @@ export function IconShield({ className = '', size = 24 }: IconProps) {
   );
 }
 
+export function IconDestello({
+  className = '',
+  size = 24,
+  style,
+  active = false,
+  id,
+}: IconProps & { active?: boolean; id?: string }) {
+  const gradId = id ?? 'destello-grad';
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="none"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={className}
+      style={style}
+      aria-hidden
+    >
+      {active && (
+        <defs>
+          <linearGradient id={gradId} x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stopColor="#C8F135" stopOpacity="0.85"/>
+            <stop offset="100%" stopColor="#C8F135" stopOpacity="0"/>
+          </linearGradient>
+        </defs>
+      )}
+      {/* Faro: semicírculo relleno */}
+      <path
+        d="M8,9 A3,3 0 0,0 8,15 Z"
+        fill={active ? '#C8F135' : 'rgba(245,240,232,0.4)'}
+        stroke="none"
+      />
+      <circle
+        cx="8" cy="12" r="3"
+        stroke={active ? '#C8F135' : 'rgba(245,240,232,0.4)'}
+        fill="none"
+      />
+      {/* Haz superior */}
+      <polygon
+        points="11,9.5 21,5 21,10"
+        fill={active ? `url(#${gradId})` : 'none'}
+        stroke={active ? '#C8F135' : 'rgba(245,240,232,0.4)'}
+        strokeLinejoin="round"
+      />
+      {/* Haz inferior */}
+      <polygon
+        points="11,14.5 21,14 21,19"
+        fill={active ? `url(#${gradId})` : 'none'}
+        stroke={active ? '#C8F135' : 'rgba(245,240,232,0.4)'}
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
 export function IconMegaphone({ className = '', size = 24, style }: IconProps) {
   return (
     <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className} style={style} aria-hidden>

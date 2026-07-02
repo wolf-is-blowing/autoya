@@ -7,9 +7,9 @@ const USER_COMMENTS_KEY = 'mouto_ruta_comments';
 const REACTIONS_KEY     = 'mouto_ruta_reactions'; // string[]
 const SHARED_KEY        = 'mouto_ruta_shared';    // string[] of shared memory IDs
 
-// ── Reactions ──────────────────────────────────────────────────────────────
+// ── Destellos ──────────────────────────────────────────────────────────────
 
-export function getReactedIds(): string[] {
+export function getDestelladoIds(): string[] {
   if (typeof window === 'undefined') return [];
   try {
     const raw = localStorage.getItem(REACTIONS_KEY);
@@ -18,22 +18,22 @@ export function getReactedIds(): string[] {
 }
 
 export function hasReacted(postId: string): boolean {
-  return getReactedIds().includes(postId);
+  return getDestelladoIds().includes(postId);
 }
 
-export function toggleReaction(postId: string): boolean {
+export function toggleDestello(postId: string): boolean {
   if (typeof window === 'undefined') return false;
   try {
-    const ids = getReactedIds();
+    const ids = getDestelladoIds();
     const idx = ids.indexOf(postId);
     if (idx >= 0) {
       ids.splice(idx, 1);
       localStorage.setItem(REACTIONS_KEY, JSON.stringify(ids));
-      return false; // un-reacted
+      return false;
     } else {
       ids.push(postId);
       localStorage.setItem(REACTIONS_KEY, JSON.stringify(ids));
-      return true; // reacted
+      return true;
     }
   } catch { return false; }
 }

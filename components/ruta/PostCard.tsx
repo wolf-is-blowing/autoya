@@ -5,9 +5,9 @@ import { useState, useEffect } from 'react';
 import { DNA } from '@/lib/design/dna';
 import { FadeInView } from '@/components/ui/FadeInView';
 import {
-  IconMegaphone, IconHeart,
+  IconMegaphone, IconDestello,
 } from '@/components/icons/MoutoIcons';
-import { hasReacted, toggleReaction } from '@/lib/ruta';
+import { hasReacted, toggleDestello } from '@/lib/ruta';
 import { MOCK_CARAVANAS } from '@/lib/data';
 import { CommentsInline } from './CommentsInline';
 import type { RutaPost } from '@/types';
@@ -370,23 +370,38 @@ export function PostCard({ post }: PostCardProps) {
   const isEditor            = post.authorId === 'mouto_editorial';
   const accent              = ACCENT[post.type];
   const typeLabel           = TYPE_LABEL[post.type];
-  const [reacted,  setReacted]  = useState(false);
-  const [count,    setCount]    = useState(post.reactionsCount);
-  const [expanded, setExpanded] = useState(false);
-  const [showCmts, setShowCmts] = useState(false);
+  const [destellado,  setDestellado]  = useState(false);
+  const [count,       setCount]       = useState(post.reactionsCount);
+  const [countBounce, setCountBounce] = useState(false);
+  const [label,       setLabel]       = useState<'count' | 'done'>('count');
+  const [flash,       setFlash]       = useState(false);
+  const [expanded,    setExpanded]    = useState(false);
+  const [showCmts,    setShowCmts]    = useState(false);
 
   const caravana = post.caravanaId
     ? MOCK_CARAVANAS.find((c) => c.id === post.caravanaId)
     : null;
 
   useEffect(() => {
-    setReacted(hasReacted(post.id));
+    setDestellado(hasReacted(post.id));
   }, [post.id]);
 
-  function handleReaction() {
-    const now = toggleReaction(post.id);
-    setReacted(now);
+  function handleDestello() {
+    const now = toggleDestello(post.id);
+    setDestellado(now);
     setCount((c) => now ? c + 1 : c - 1);
+
+    if (now) {
+      // Flash pulse
+      setFlash(true);
+      setTimeout(() => setFlash(false), 350);
+      // Counter bounce
+      setCountBounce(true);
+      setTimeout(() => setCountBounce(false), 220);
+      // Label "Destellado ✓" for 1.5s
+      setLabel('done');
+      setTimeout(() => setLabel('count'), 1500);
+    }
   }
 
   const isCompactNews = post.type === 'industry_news' || post.type === 'brand_news';
@@ -464,21 +479,55 @@ export function PostCard({ post }: PostCardProps) {
           display: 'flex', alignItems: 'center', gap: 16,
           padding: '12px 16px 14px',
         }}>
-          {/* Reaction */}
+          {/* Destello */}
           <button
-            onClick={handleReaction}
+            onClick={handleDestello}
+            title="Destellar"
             style={{
-              display: 'flex', alignItems: 'center', gap: 5,
+              display: 'flex', alignItems: 'center', gap: 6,
               background: 'none', border: 'none', padding: 0,
               cursor: 'pointer',
-              color: reacted ? '#FF3B30' : '#8E8E93',
+              color: destellado ? '#C8F135' : '#8E8E93',
               transition: 'color 150ms',
+              position: 'relative',
             }}
           >
-            <IconHeart size={18} filled={reacted} />
-            <span style={{ fontFamily: cabinet, fontSize: 13, fontWeight: reacted ? 600 : 400 }}>
-              {count}
-            </span>
+            {/* Flash ring */}
+            <span style={{
+              position: 'absolute',
+              inset: -6,
+              borderRadius: '50%',
+              boxShadow: flash ? '0 0 0 8px rgba(200,241,53,0.45)' : '0 0 0 0px rgba(200,241,53,0)',
+              opacity: flash ? 0 : 1,
+              transform: flash ? 'scale(1.4)' : 'scale(1)',
+              transition: flash
+                ? 'box-shadow 300ms ease-out, transform 300ms ease-out, opacity 300ms ease-out'
+                : 'none',
+              pointerEvents: 'none',
+            }} />
+            <IconDestello
+              size={19}
+              active={destellado}
+              id={`destello-${post.id}`}
+            />
+            {label === 'done' ? (
+              <span style={{
+                fontFamily: cabinet, fontSize: 12, fontWeight: 600,
+                color: '#C8F135', whiteSpace: 'nowrap',
+              }}>
+                Destellado ✓
+              </span>
+            ) : (
+              <span style={{
+                fontFamily: cabinet, fontSize: 13,
+                fontWeight: destellado ? 600 : 400,
+                transform: countBounce ? 'translateY(-2px)' : 'translateY(0)',
+                transition: 'transform 200ms ease-out',
+                display: 'inline-block',
+              }}>
+                {count}
+              </span>
+            )}
           </button>
 
           {/* Comments */}
