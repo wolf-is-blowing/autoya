@@ -185,4 +185,24 @@ export function getFeedPosts(filter: FeedFilter = 'todo'): RutaPost[] {
   });
 }
 
+export function shareAtelierToRuta(afterImageUrl: string, categoryLabel: string): RutaPost {
+  const user = authUtils.getUser();
+  const post: RutaPost = {
+    id:             `rp_atelier_${Date.now()}`,
+    type:           'atelier_share',
+    authorId:       user?.id ?? 'anon',
+    authorName:     user?.name ?? 'Tú',
+    authorAvatar:   user?.avatar ?? null,
+    caravanaId:     null,
+    createdAt:      new Date().toISOString(),
+    title:          `Visualización Atelier — ${categoryLabel}`,
+    body:           'Explorando opciones de personalización con Atelier IA.',
+    imageUrl:       afterImageUrl,
+    reactionsCount: 0,
+    commentsCount:  0,
+  };
+  saveUserPost(post);
+  return post;
+}
+
 export type { FeedFilter };

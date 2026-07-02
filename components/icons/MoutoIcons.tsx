@@ -284,6 +284,47 @@ export function IconTrophy({ className = '', size = 24, style }: IconProps) {
   );
 }
 
+export function IconArrowsH({ className = '', size = 24, style }: IconProps) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className} style={style} aria-hidden>
+      <line x1="12" y1="12" x2="12" y2="12"/>
+      <polyline points="9,8 5,12 9,16"/>
+      <polyline points="15,8 19,12 15,16"/>
+    </svg>
+  );
+}
+
+export function IconPaint({ className = '', size = 24, style }: IconProps) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className} style={style} aria-hidden>
+      <path d="M19 3H5a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2z"/>
+      <path d="M12 11 L12 19"/>
+      <circle cx="12" cy="21" r="1.5" fill="currentColor" stroke="none"/>
+    </svg>
+  );
+}
+
+export function IconWheel({ className = '', size = 24, style }: IconProps) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className} style={style} aria-hidden>
+      <circle cx="12" cy="12" r="10"/>
+      <circle cx="12" cy="12" r="3"/>
+      <line x1="12" y1="2"  x2="12" y2="9"/>
+      <line x1="12" y1="15" x2="12" y2="22"/>
+      <line x1="2"  y1="12" x2="9"  y2="12"/>
+      <line x1="15" y1="12" x2="22" y2="12"/>
+    </svg>
+  );
+}
+
+export function IconZap({ className = '', size = 24, style }: IconProps) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className} style={style} aria-hidden>
+      <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+    </svg>
+  );
+}
+
 export function IconClose({ className = '', size = 18, style }: IconProps) {
   return (
     <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" className={className} style={style} aria-hidden>

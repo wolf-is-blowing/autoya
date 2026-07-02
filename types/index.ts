@@ -213,3 +213,50 @@ export interface NavItem {
   iconKey: string;
   protected: boolean;
 }
+
+// ── Atelier ────────────────────────────────────────────────────────────────
+
+export type AtelierCategory = 'color' | 'llantas' | 'styling' | 'interior' | 'performance';
+
+export interface AtelierOption {
+  id: string;
+  categoryId: AtelierCategory;
+  label: string;
+  thumbnailUrl: string;
+  description: string;
+}
+
+export interface AtelierGeneration {
+  id: string;
+  carId: string | null;
+  categoryId: AtelierCategory;
+  optionId: string;
+  beforeImageUrl: string;
+  afterImageUrl: string;
+  createdAt: string;
+  savedByUser: boolean;
+}
+
+// ── Marcas ─────────────────────────────────────────────────────────────────
+
+export interface BrandModel {
+  id: string;
+  brandSlug: string;
+  name: string;
+  type: 'Sedán' | 'SUV' | 'Pickup' | 'Hatchback' | 'Van' | 'Deportivo';
+  imageUrl: string;
+  priceFrom: number;
+  year: number;
+}
+
+export interface MarketplaceProduct {
+  id: string;
+  brandSlug: string;
+  modelName?: string;
+  name: string;
+  category: 'accesorios' | 'repuestos' | 'estetica' | 'audio';
+  price: number;
+  imageUrl: string;
+  sellerName: string;
+  verified: boolean;
+}
